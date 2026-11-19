@@ -597,7 +597,7 @@ async function exportBackup() {
 function importBackup(file) {
   const r = new FileReader();
   r.onload = () => {
-    let b; try { b = JSON.parse(r.result); } catch (e) { return toast('That file isn’t a backup from this app.'); }
+    let b; try { b = JSON.parse(String(r.result).replace(/^\uFEFF/, '').trim()); } catch (e) { return toast('That file isn’t a backup from this app.'); }
     if (!b || b.app !== 'foundational-reset' || !b.months) return toast('That file isn’t a backup from this app.');
     Object.assign(S.profile, b.profile || {});
     S.fasts = mergeFasts(b.fasts || { list: [], refeeds: [] }, S.fasts);
@@ -1021,7 +1021,7 @@ function vSetup(c) {
     </form></div>`; })()}
   <div class="card"><h2>Backup</h2>
     <p class="small muted">Save everything to a file, or bring in a backup. Importing merges entries, so nothing already here is lost.</p>
-    <div class="btns"><button data-act="exportBackup">Save backup file</button>${IN_CLAUDE ? '' : `<label class="sm" style="display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border:1px solid var(--line);border-radius:8px;font-family:var(--f-display);font-weight:600;font-size:18px;cursor:pointer">Import backup<input id="s-import" type="file" accept="application/json,.json" style="display:none"></label>`}</div></div>
+    <div class="btns"><button data-act="exportBackup">Save backup file</button>${IN_CLAUDE ? '' : `<button data-act="pickImport">Import backup</button><input id="s-import" type="file" hidden>`}</div></div>
   <div class="card"><h2>About this build</h2><p class="small muted">${IN_CLAUDE ? 'Your log is private to you and saved to your account, so it follows you across devices.' : 'Your log is cached on this phone and synced to your Google Sheet.'} The morning kettle prompt needs a phone alarm; web pages can’t send notifications.</p></div>`;
 }
 
@@ -1157,6 +1157,7 @@ document.addEventListener('click', e => {
   switch (act) {
     case 'startDaily': return startFast('daily');
     case 'exportBackup': return exportBackup();
+    case 'pickImport': { const inp = $('#s-import'); if (inp) { inp.value = ''; inp.click(); } return; }
     case 'syncOff': try { localStorage.removeItem('reset-sync'); } catch (x) {} return location.reload();
     case 'pickStart': UI.pickStart = true; return render();
     case 'cancelPickStart': UI.pickStart = false; return render();
@@ -1252,7 +1253,7 @@ document.addEventListener('change', e => {
   if (el.dataset.act === 'formOk') { UI.draft.items[+el.dataset.i].sets[+el.dataset.s].ok = el.checked; return; }
   if (el.dataset.act === 'brothMeal1') { day(dateKey(Date.now())).brothMeal1 = el.checked; saveMonth(Date.now()); return render(); }
   if (el.dataset.act === 'xero') { S.profile.xero = el.checked; if (el.checked && !S.profile.xeroSince) S.profile.xeroSince = dateKey(Date.now()); save('profile'); return render(); }
-  if (el.id === 's-import' && el.files && el.files[0]) { importBackup(el.files[0]); el.value = ''; return; }
+  if (el.id === 's-import') { if (el.files && el.files[0]) { toast('Reading ' + el.files[0].name + '…'); importBackup(el.files[0]); } else toast('No file chosen.'); return; }
   if (el.dataset.act === 'ketoTick') { day(dateKey(Date.now()))[el.dataset.k] = el.checked; saveMonth(Date.now()); return render(); }
   if (el.dataset.act === 'alcohol') { day(dateKey(Date.now())).alcohol = el.checked; saveMonth(Date.now()); return render(); }
   if (el.dataset.prof) {
