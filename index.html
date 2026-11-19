@@ -571,7 +571,17 @@ function gasCol(url, code) {
       .finally(() => { polling = false; });
   };
   return {
-    doc: id => ({ set: data => gasCall(url, code, { op: 'set', id, data }) }),
+    // Read-merge-write: entries are append-only, so merge with what the sheet holds before writing.
+    // Stops one device overwriting entries another device added since it last synced.
+    doc: id => ({ set: data => gasCall(url, code, { op: 'list' }).then(j => {
+      const cur = (j.docs.find(d => d.id === id) || {}).data;
+      let merged = data;
+      if (cur && id === 'fasts') merged = mergeFasts(cur, data);
+      else if (cur && id.startsWith('m-')) merged = mergeMonth(cur, data);
+      if (id === 'fasts') S.fasts = merged; else if (id.startsWith('m-')) S.months[id.slice(2)] = merged;
+      if (merged !== data) { cacheLocal(); softRender(); }
+      return gasCall(url, code, { op: 'set', id, data: merged });
+    }) }),
     onSnapshot(next) {
       cb = next; poll();
       setInterval(() => { if (!document.hidden && !dirty.size) poll(); }, 120000);
