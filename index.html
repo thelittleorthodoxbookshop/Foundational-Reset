@@ -1,0 +1,1310 @@
+<!doctype html><html lang="en-NZ"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2c6a39"><link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<style>:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<title>The Foundational Reset</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: a shed-wall logbook — one column of stacked cards, tag-style condensed labels, fixed bottom tab bar. */
+:root {
+  --bg: #eef1ed; --surface: #ffffff; --ink: #141916; --muted: #56615b; --line: #d3dbd5;
+  --accent: #2c6a39; --accent-ink: #ffffff; --accent-soft: #e2efe4;
+  --warn: #8f5600; --warn-bg: #fff1d9; --danger: #b3261e; --danger-bg: #fde9e7;
+  --chart-w: #141916; --chart-p: #2c6a39; --band: #d8ead9; --keto: #3d6a91;
+  --f-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", Tahoma, sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1311; --surface: #181e1b; --ink: #e8ede9; --muted: #9ba7a0; --line: #2a332e;
+  --accent: #74c283; --accent-ink: #0c1a10; --accent-soft: #1d2e22;
+  --warn: #f0b54f; --warn-bg: #2c2312; --danger: #f28a80; --danger-bg: #331b19;
+  --chart-w: #e8ede9; --chart-p: #74c283; --band: #1f3324; --keto: #8db8dc; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1311; --surface: #181e1b; --ink: #e8ede9; --muted: #9ba7a0; --line: #2a332e;
+  --accent: #74c283; --accent-ink: #0c1a10; --accent-soft: #1d2e22;
+  --warn: #f0b54f; --warn-bg: #2c2312; --danger: #f28a80; --danger-bg: #331b19;
+  --chart-w: #e8ede9; --chart-p: #74c283; --band: #1f3324; --keto: #8db8dc; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.45; }
+.wrap { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px calc(96px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 14px; }
+h1, h2, h3, .tag, .num, button, .tab { font-family: var(--f-display); }
+h1 { font-size: 30px; line-height: 1.05; margin: 0; font-weight: 700; letter-spacing: .01em; text-wrap: balance; }
+h2 { font-size: 15px; margin: 0; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+h3 { font-size: 21px; margin: 0; font-weight: 600; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 15px; }
+.num { font-variant-numeric: tabular-nums; font-weight: 700; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; padding: 4px 10px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+.tag.warn { background: var(--warn-bg); color: var(--warn); }
+.tag.danger { background: var(--danger-bg); color: var(--danger); }
+.tag.plain { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.banner { border-radius: var(--r); padding: 14px 16px; display: grid; gap: 6px; }
+.banner.warn { background: var(--warn-bg); color: var(--warn); }
+.banner.danger { background: var(--danger-bg); color: var(--danger); border: 2px solid var(--danger); }
+.banner b { font-family: var(--f-display); font-size: 19px; text-transform: uppercase; letter-spacing: .05em; }
+.banner p { color: var(--ink); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.row > * { min-width: 0; }
+.stack { display: grid; gap: 8px; }
+button { font-size: 18px; font-weight: 600; letter-spacing: .03em; min-height: 48px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.danger { background: transparent; color: var(--danger); border: 2px solid var(--danger); }
+button.ghost { background: transparent; }
+button.sm { min-height: 40px; font-size: 16px; padding: 0 12px; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, select:focus-visible, .tab:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.btns { display: flex; gap: 8px; flex-wrap: wrap; }
+input, select { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; min-height: 48px; padding: 0 12px; width: 100%; }
+input[type=checkbox] { width: 26px; min-height: 26px; height: 26px; accent-color: var(--accent); }
+input[type=range] { padding: 0; accent-color: var(--accent); background: transparent; border: 0; }
+label.f { display: grid; gap: 4px; font-size: 15px; color: var(--muted); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.check { display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); }
+.check:first-of-type { border-top: 0; }
+.box { width: 26px; height: 26px; border-radius: 6px; border: 2px solid var(--line); display: grid; place-items: center; font-weight: 700; color: var(--accent-ink); }
+.box.on { background: var(--accent); border-color: var(--accent); }
+.box.on::after { content: "✓"; font-size: 17px; }
+.bar { height: 14px; border-radius: 3px; background: var(--accent-soft); overflow: hidden; position: relative; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.bar .mark { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
+.big { font-size: 46px; line-height: 1; }
+.week { display: grid; grid-template-columns: 64px repeat(7, 1fr); gap: 4px; align-items: center; text-align: center; font-variant-numeric: tabular-nums; }
+.week .lbl { text-align: left; font-family: var(--f-display); font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 14px; letter-spacing: .05em; }
+.dot { width: 18px; height: 18px; border-radius: 50%; margin: 0 auto; border: 2px solid var(--line); }
+.dot.done { background: var(--accent); border-color: var(--accent); }
+.dot.half { background: linear-gradient(90deg, var(--warn) 50%, transparent 50%); border-color: var(--warn); }
+.dot.due { border-color: var(--accent); }
+.dot.none { border-style: dotted; opacity: .5; }
+.today-col { font-weight: 700; color: var(--ink); }
+.grid-food { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.grid-food button { min-height: 56px; font-size: 17px; text-align: left; line-height: 1.1; padding: 8px 12px; }
+.grid-food button.locked { background: var(--bg); color: var(--muted); border-style: dashed; }
+.grid-food button small { display: block; font-family: var(--f-body); font-size: 13px; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+.ex { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+.ex:first-of-type { border-top: 0; padding-top: 0; }
+.sets { display: grid; gap: 6px; }
+.set { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: center; }
+.step { display: inline-grid; grid-template-columns: 44px 56px 44px; align-items: center; text-align: center; }
+.step button { min-height: 44px; padding: 0; font-size: 22px; }
+.step span { font-size: 22px; }
+.formok { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); }
+.list { display: grid; gap: 0; }
+.list .li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.list .li:first-child { border-top: 0; }
+.msg { padding: 10px 12px; border-radius: 8px; font-size: 15px; }
+.msg.warn { background: var(--warn-bg); color: var(--warn); }
+.msg.danger { background: var(--danger-bg); color: var(--danger); }
+.msg.ok { background: var(--accent-soft); color: var(--accent); }
+.lock { border: 2px solid var(--danger); background: var(--danger-bg); border-radius: var(--r); padding: 14px; display: grid; gap: 8px; }
+.lock b { font-family: var(--f-display); color: var(--danger); font-size: 19px; letter-spacing: .03em; }
+.lock ul { margin: 0; padding-left: 20px; }
+.chart-wrap { overflow-x: auto; }
+.chart-wrap svg { display: block; width: 100%; height: auto; min-width: 320px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { display: grid; gap: 2px; }
+.stat .num { font-size: 28px; line-height: 1; }
+.stat span { font-size: 13px; color: var(--muted); }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.legend i { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin-right: 6px; }
+nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px max(8px, env(safe-area-inset-left, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-right, 0px)); z-index: 5; }
+.tab { background: none; border: 0; min-height: 52px; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-radius: 8px; padding: 0 4px; }
+.tab[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+.sheet-bg { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 20; display: grid; align-items: end; }
+.sheet { background: var(--surface); border-radius: 16px 16px 0 0; max-height: 92%; overflow-y: auto; padding: 20px max(16px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 14px; max-width: 560px; width: 100%; margin: 0 auto; }
+.painval { font-size: 64px; line-height: 1; text-align: center; }
+.yn { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; min-height: 44px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.seg.danger button[aria-pressed="true"] { background: var(--danger); color: #fff; }
+.timer { position: fixed; inset: 0; z-index: 30; background: var(--bg); display: grid; grid-template-rows: auto 1fr auto; padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); gap: 14px; }
+.timer .clock { font-family: var(--f-display); font-weight: 700; font-size: clamp(88px, 30vw, 160px); line-height: 1; text-align: center; font-variant-numeric: tabular-nums; }
+.timer .mid { display: grid; align-content: center; gap: 14px; text-align: center; }
+.timer .cue { font-size: 20px; max-width: 30ch; margin: 0 auto; }
+.timer.rest .clock { color: var(--warn); }
+.status { font-size: 13px; color: var(--muted); }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(80px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 8px; z-index: 40; font-size: 15px; max-width: calc(100% - 32px); }
+@media (prefers-reduced-motion: no-preference) { .bar i { transition: width .4s; } }
+@media (max-width: 380px) { .stats { grid-template-columns: 1fr 1fr; } .tab { font-size: 14px; letter-spacing: .03em; } }
+</style>
+</head><body>
+<main class="wrap" id="app" aria-live="polite"></main>
+<div id="sheet" hidden></div>
+<div id="timer" class="timer" hidden></div>
+<div id="toast" class="toast" role="status" hidden></div>
+<nav class="tabs" aria-label="Sections">
+  <button class="tab" data-view="today">Today</button>
+  <button class="tab" data-view="train">Train</button>
+  <button class="tab" data-view="fast">Fast</button>
+  <button class="tab" data-view="progress">Progress</button>
+  <button class="tab" data-view="setup">Settings</button>
+</nav>
+<script>window.RESET_STANDALONE=true;</script><script>
+/* ===== Foundational Reset — guardrail engines (pure, no DOM) ===== */
+const DAY = 864e5, HOUR = 36e5;
+const pad = n => String(n).padStart(2, '0');
+const dateKey = d => { d = new Date(d); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+const monthKey = d => dateKey(d).slice(0, 7);
+const fromKey = k => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
+const daysBetween = (a, b) => Math.round((fromKey(dateKey(b)) - fromKey(dateKey(a))) / DAY);
+const avg = a => a.length ? a.reduce((s, x) => s + x, 0) / a.length : null;
+
+const CAT = {
+  water:   { label: 'Water, salt + lemon' },
+  broth:   { label: 'Bone broth' },
+  fermented: { label: 'Fermented / sauerkraut' },
+  softVeg: { label: 'Soft cooked veg' },
+  monoFat: { label: 'Avocado / soft fats' },
+  tallow:  { label: 'Tallow' },
+  protein: { label: 'Lean protein' },
+  normal:  { label: 'Normal meal' },
+  heavyCarb: { label: 'Heavy carbs' },
+  sugar:   { label: 'Sugar' },
+  alcohol: { label: 'Alcohol' },
+};
+const FAST_TYPES = {
+  daily:  { label: '16:8 daily fast', target: 16 },
+  block3: { label: '3-day block fast', target: 72 },
+  block5: { label: '5-day block fast', target: 120 },
+};
+const ABORT_SYMPTOMS = ['dizzy', 'palpitations', 'confusion', 'fainting', 'vomiting'];
+const SYMPTOMS = { dizzy: 'Dizzy on standing', palpitations: 'Palpitations', confusion: 'Confusion', fainting: 'Fainting', vomiting: 'Vomiting', headache: 'Headache', fatigue: 'Fatigue' };
+const LOCKOUT_MSG = 'Metabolic Safeguard Active: Your body requires nutritional repletion before the next cellular reset.';
+
+/* ---- flattening helpers over month docs ---- */
+function allOf(S, key) {
+  return Object.keys(S.months).sort().flatMap(m => S.months[m][key] || []);
+}
+const allCheckins = S => allOf(S, 'checkins').sort((a, b) => a.t - b.t);
+const allWeights = S => allOf(S, 'weights').sort((a, b) => a.t - b.t);
+const allWorkouts = S => allOf(S, 'workouts').sort((a, b) => a.t - b.t);
+const allMeals = S => allOf(S, 'meals').sort((a, b) => a.t - b.t);
+function dayLog(S, k) { const m = S.months[k.slice(0, 7)]; return (m && m.days && m.days[k]) || {}; }
+
+/* ---- 4.2 Red flags: locked until cleared in Settings ---- */
+function redFlagLocked(S) {
+  const cleared = S.profile.redFlagClearedAt || 0;
+  return allCheckins(S).some(c => c.t > cleared && (c.rfLeg || c.rfSaddle || c.rfBladder));
+}
+
+/* ---- 4.6 Sneeze safeguard ---- */
+const SG_TRIGGER = 4, SG_CALM_DAYS = 3;
+function safeguard(S, now) {
+  const cs = allCheckins(S);
+  const trig = cs.filter(c => c.pain >= SG_TRIGGER).pop();
+  if (!trig) return { active: false, calm: 0, need: SG_CALM_DAYS };
+  let calm = 0;
+  for (let d = fromKey(dateKey(trig.t)).getTime() + DAY; d <= fromKey(dateKey(now)).getTime(); d += DAY) {
+    const k = dateKey(d);
+    const day = cs.filter(c => dateKey(c.t) === k);
+    if (day.length && day.every(c => c.pain < SG_TRIGGER)) calm++; else if (k !== dateKey(now)) calm = 0;
+  }
+  return { active: calm < SG_CALM_DAYS, calm, need: SG_CALM_DAYS, trigger: trig };
+}
+function painAvg(S, now, days = 7) {
+  const cs = allCheckins(S).filter(c => c.t > now - days * DAY);
+  return { avg: avg(cs.map(c => c.pain)), n: cs.length };
+}
+function suggestL4(a) {
+  if (a == null) return null;
+  return a >= 6 ? 'acute_sneeze_pain' : a >= 4 ? 'vulnerable_bracing' : a >= 1 ? 'stable_functional' : 'resilient';
+}
+function weightAvg(S, now, days = 7) {
+  const w = allWeights(S).filter(x => x.t > now - days * DAY);
+  return avg(w.map(x => x.kg));
+}
+
+/* ---- 4.3 Fast phases ---- */
+function activeFast(S) { return (S.fasts.list || []).find(f => f.state === 'active') || null; }
+function elapsedH(f, now) { return ((f.endedAt || now) - f.startedAt) / HOUR; }
+function allowedAt(type, h) {
+  if (type === 'block3') return h < 48 ? ['water'] : ['water', 'broth'];
+  if (type === 'block5') return h < 72 ? ['water'] : ['water', 'broth', 'tallow'];
+  return ['water'];
+}
+function phaseLabel(type, h) {
+  if (type === 'block3') return h < 48 ? 'Water, salt + lemon only' : 'Bone broth phase';
+  if (type === 'block5') return h < 72 ? 'Water + electrolytes only' : 'Bone broth + tallow phase';
+  return 'Water, black tea or coffee';
+}
+function nextUnlock(type, h) {
+  if (type === 'block3' && h < 48) return { what: 'Bone broth', inH: 48 - h };
+  if (type === 'block5' && h < 72) return { what: 'Broth + tallow', inH: 72 - h };
+  return null;
+}
+function checkFastIntake(f, cat, now) {
+  const h = elapsedH(f, now);
+  const ok = allowedAt(f.type, h);
+  if (!ok.includes(cat)) return { v: 'blocked', msg: 'Not in this phase. Allowed now: ' + ok.map(c => CAT[c].label).join(', ') + '.' };
+  if (cat === 'tallow') {
+    const k = dateKey(now);
+    const tbsp = (f.intake || []).filter(i => i.cat === 'tallow' && dateKey(i.t) === k).length;
+    if (tbsp >= 2) return { v: 'blocked', msg: 'Tallow cap is 2 × 1 tbsp per day.' };
+  }
+  return { v: 'ok' };
+}
+function saltLast24(f, now) { return (f.intake || []).filter(i => i.t > now - 24 * HOUR).reduce((s, i) => s + (i.salt || 0), 0); }
+function saltWarning(f, now) {
+  return f.type !== 'daily' && elapsedH(f, now) >= 24 && saltLast24(f, now) < 3;
+}
+function refeedDaysFor(f, now) { return (f.type === 'block5' && elapsedH(f, now) >= 72) ? 5 : 3; }
+
+/* ---- 4.4 Refeed state machine ---- */
+const R_BASE = ['water', 'broth', 'fermented'];
+const R_BANNED = ['alcohol', 'sugar', 'heavyCarb'];
+const REFEED = {
+  3: { 1: R_BASE, 2: [...R_BASE, 'softVeg', 'monoFat'], 3: [...R_BASE, 'softVeg', 'monoFat', 'protein', 'normal'] },
+  5: { 1: R_BASE, 2: R_BASE, 3: [...R_BASE, 'monoFat', 'tallow'], 4: [...R_BASE, 'monoFat', 'tallow', 'protein'], 5: [...R_BASE, 'monoFat', 'tallow', 'protein'] },
+};
+function openRefeed(S, now) {
+  const r = (S.fasts.refeeds || []).slice().sort((a, b) => a.startedOn < b.startedOn ? -1 : 1).pop();
+  if (!r) return null;
+  const day = daysBetween(fromKey(r.startedOn), now) + 1;
+  return day <= r.days ? { ...r, day } : null;
+}
+function unlockDay(days, cat) {
+  for (let d = 1; d <= days; d++) if (REFEED[days][d].includes(cat)) return d;
+  return days + 1;
+}
+function checkRefeed(r, cat, grams) {
+  if (R_BANNED.includes(cat)) return { v: 'blocked', msg: `Refeed day ${r.day} of ${r.days}: no ${CAT[cat].label.toLowerCase()} until refeed is complete.` };
+  if (!REFEED[r.days][r.day].includes(cat)) {
+    const u = unlockDay(r.days, cat);
+    return { v: 'warn', msg: `${CAT[cat].label} unlocks on ${u > r.days ? 'completion' : 'day ' + u}. Log anyway?` };
+  }
+  if (r.days === 5 && cat === 'protein' && grams > 150) return { v: 'blocked', msg: 'Keep protein to 150 g portions on refeed days 4–5.' };
+  if (r.days === 3 && r.day === 1 && cat === 'fermented' && grams > 30) return { v: 'warn', msg: 'Small portions only on day 1 (about 2 tbsp). Log anyway?' };
+  return { v: 'ok' };
+}
+
+/* ---- 4.5 Macro-cycle + interstitial guardrail ---- */
+function endedBlocks(S) {
+  return (S.fasts.list || []).filter(f => f.type !== 'daily' && (f.state === 'completed' || f.state === 'aborted'))
+    .sort((a, b) => a.endedAt - b.endedAt);
+}
+function macroPhase(S, now) {
+  const act = activeFast(S);
+  const ended = endedBlocks(S);
+  if (act && act.type !== 'daily') return { key: ended.length ? 'block2' : 'block1', label: ended.length ? 'Block Fast 2' : 'Block Fast 1' };
+  if (!ended.length) return { key: 'pre_block1', label: 'Pre-reset' };
+  const r = openRefeed(S, now);
+  const last = ended[ended.length - 1];
+  if (r) return { key: ended.length === 1 ? 'refeed1' : 'refeed2', label: `Refeed · day ${r.day} of ${r.days}` };
+  const d = daysBetween(last.endedAt, now);
+  if (ended.length === 1) return { key: 'interstitial', label: `Interstitial · day ${d}`, day: d };
+  return { key: 'maintenance', label: `Maintenance · day ${d}`, day: d };
+}
+function weightDownOrStable(ws) {
+  if (ws.length < 6) return false;
+  const first = avg(ws.slice(0, 3).map(w => w.kg));
+  const last = avg(ws.slice(-3).map(w => w.kg));
+  return last <= first + 0.3;
+}
+function canStartBlock(S, now) {
+  const p = S.profile;
+  const reasons = [];
+  if (redFlagLocked(S)) return { ok: false, hard: true, type: null, reasons: ['Red flag logged. Clear it in Settings once you have been checked.'] };
+  if (activeFast(S)) return { ok: false, type: null, reasons: ['Finish your current fast first.'] };
+  const ended = endedBlocks(S);
+  const type = ended.length ? 'block5' : 'block3';
+  if (p.requireGP && !p.gpDate) reasons.push('GP sign-off is switched on in Settings but no date is entered.');
+  if (!ended.length) return { ok: !reasons.length, type, reasons };
+  if (openRefeed(S, now)) return { ok: false, type, reasons: ['Finish the refeed first.'] };
+  const last = ended[ended.length - 1];
+  const d = daysBetween(last.endedAt, now);
+  const lock = { ok: false, hard: true, type, lockout: true, reasons: [] };
+  if (d < 21) { lock.reasons.push(`${21 - d} day${21 - d === 1 ? "" : "s"} remaining of the 21-day minimum.`); lock.remaining = 21 - d; }
+  const ws = allWeights(S).filter(w => w.t >= last.endedAt);
+  if (ws.length < 6) lock.reasons.push(`Log at least 6 weigh-ins this phase (${ws.length} so far).`);
+  else if (!weightDownOrStable(ws)) lock.reasons.push('Weight has trended up this phase.');
+  const pa = painAvg(S, now, 7);
+  if (pa.n < 5) lock.reasons.push(`Log at least 5 back check-ins in the last 7 days (${pa.n} so far).`);
+  else if (pa.avg > 3) lock.reasons.push(`7-day back pain average is ${pa.avg.toFixed(1)} (needs 3 or less).`);
+  lock.reasons.push(...reasons);
+  if (lock.reasons.length) return lock;
+  return { ok: true, type, reasons: [] };
+}
+function interstitialGaps(S, k) {
+  const d = dayLog(S, k);
+  return [
+    { label: '16 h fast', done: (d.fastH || 0) >= 16 },
+    { label: '250 ml broth with meal 1', done: (d.broth || 0) >= 250 && !!d.brothMeal1 },
+    { label: 'No alcohol', done: !d.alcohol },
+  ];
+}
+
+/* ---- 4.8 Progression ---- */
+function weekNo(S, now) { return Math.floor(daysBetween(fromKey(S.profile.programStart), now) / 7) + 1; }
+function pullupStage(S, now, sgActive) {
+  const w7 = weightAvg(S, now, 7);
+  if (weekNo(S, now) < 5 || sgActive || w7 == null) return 1;
+  return w7 < 92 ? 2 : 1;
+}
+function earnsFloorPushup(sets) { return sets.filter(s => s.ok && (s.reps || 0) >= 10).length >= 5; }
+
+/* ---- 4.7 Workout planner ---- */
+const EX = {
+  kettle:   { name: 'Prying goblet squat', cue: 'Bell at chest, sink down, elbows push knees out, rock side to side.' },
+  sling:    { name: 'Kettlebell slingshot', cue: 'Pass the bell round your waist. Hips still, ribs down. Both directions.' },
+  cpress:   { name: 'Two-hand clean & press', cue: 'Dead-straight posture. Squeeze glutes before you press.' },
+  carry:    { name: 'Sandbag bear-hug carry', cue: 'Pelvis tucked, core braced, short steady steps.' },
+  abc:      { name: 'Single-bell ABC', cue: '2 cleans → 1 press → 3 front squats. Left arm, straight into right arm, keep rolling.' },
+  bwsquat:  { name: 'Bodyweight squat AMRAP', cue: 'Slow and controlled, 3 squats per side-round. Stop if the back speaks up.' },
+  incline:  { name: 'Incline bench pushup', cue: 'Hands on the bench, body rigid as a plank, chest to the edge.' },
+  floorpu:  { name: 'Floor pushup', cue: 'Same rigid plank. Lower with control.' },
+  deadbug:  { name: 'Strict dead bug', cue: 'Flatten the low back into the floor. Exhale hard. Never more than 8.' },
+  hang:     { name: 'Active decompression hang', cue: 'Grip the truss pipe, shoulders engaged, let the spine lengthen.' },
+  scap:     { name: 'Scapular pull-down', cue: 'From the hang, pull shoulder blades down without bending the elbows.' },
+  negative: { name: 'Assisted negative pull-up', cue: 'Step off the box at the top, lower over 5–10 s.' },
+  traction: { name: 'Foot-assisted traction', cue: 'Feet on the box, take only as much weight through the hands as feels easy.' },
+};
+function planFor(S, date, opt = {}) {
+  const now = opt.now || Date.now();
+  if (redFlagLocked(S)) return { key: 'locked', title: 'Training paused', locked: true, note: 'A red flag is logged. See a doctor, then clear it in Settings.', items: [] };
+  const af = activeFast(S);
+  if (af && af.type !== 'daily') return { key: 'fast', title: 'Block fast: movement only', note: 'No loaded work during a block fast. Kettle squat and easy hangs only.', items: [
+    { ex: 'kettle', kind: 'time', sets: 1, secs: 60 }, { ex: 'hang', kind: 'time', sets: 2, secs: 20 }] };
+  const sg = safeguard(S, now).active;
+  const dow = opt.dow != null ? opt.dow : new Date(date).getDay();
+  const p = S.profile;
+  if (dow === 1) {
+    if (sg && p.downgradeMonday !== false) return { key: 'mon', title: 'Heavy Engine', downgraded: true, note: 'Safeguard on: carries only, lighter bag.', items: [
+      { ex: 'carry', kind: 'distance', sets: 3, metres: 50, kg: 10 }] };
+    return { key: 'mon', title: 'Heavy Engine', note: 'Rotational core and spinal integrity.', items: [
+      { ex: 'sling', kind: 'reps', sets: 3, reps: 10, kg: 10, perSide: 'each direction' },
+      { ex: 'cpress', kind: 'reps', sets: 5, reps: 2, kg: 10, perSide: 'per side' },
+      { ex: 'carry', kind: 'distance', sets: 3, metres: 50, kg: 20 }] };
+  }
+  if (dow === 3) {
+    if (sg) return { key: 'wed', title: 'Single-Bell ABC', downgraded: true, note: 'Safeguard on: bodyweight squats replace the bell.', items: [
+      { ex: 'bwsquat', kind: 'amrap', minutes: 10, rest: 0 }] };
+    return { key: 'wed', title: 'Single-Bell ABC', note: '10-minute AMRAP. As many rounds as pretty.', items: [
+      { ex: 'abc', kind: 'amrap', minutes: 10, rest: 0, kg: 10 }] };
+  }
+  if (dow === 5) {
+    const stage = pullupStage(S, now, sg);
+    const items = [
+      p.pushupStage === 'floor' ? { ex: 'floorpu', kind: 'reps', sets: 5, reps: 3 } : { ex: 'incline', kind: 'reps', sets: 5, reps: 5, target: '3–10' },
+      { ex: 'deadbug', kind: 'reps', sets: 3, reps: 8, cap: 8 },
+    ];
+    if (sg) items.push({ ex: 'traction', kind: 'time', sets: 3, secs: 30 });
+    else {
+      items.push({ ex: 'hang', kind: 'time', sets: 3, secs: 25 });
+      if (stage === 1) items.push({ ex: 'scap', kind: 'reps', sets: 3, reps: 5 });
+      else items.push({ ex: 'negative', kind: 'reps', sets: 3, reps: 3 });
+    }
+    return { key: 'fri', title: 'Bodyweight + Pull-Up Path', downgraded: sg, note: sg ? 'Safeguard on: hangs become foot-assisted traction.' : `Pull-up ladder stage ${stage}.`, items };
+  }
+  return { key: 'rest', title: 'Rest day', note: 'Kettle squat still counts. Walk, work, recover.', items: [] };
+}
+
+/* ===== App: state, storage, views ===== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmtH = h => { const m = Math.max(0, Math.round(h * 60)); return Math.floor(m / 60) + ':' + pad(m % 60); };
+const fmtClock = s => { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ':' + pad(s % 60); };
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const fmtDate = t => { const d = new Date(t); return DOW[d.getDay()] + ' ' + pad(d.getDate()) + '/' + pad(d.getMonth() + 1); };
+const fmtTime = t => { const d = new Date(t); return pad(d.getHours()) + ':' + pad(d.getMinutes()); };
+const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+const L4 = { acute_sneeze_pain: 'Acute sneeze pain', vulnerable_bracing: 'Vulnerable, bracing', stable_functional: 'Stable, functional', resilient: 'Resilient' };
+
+const S = {
+  profile: { heightCm: 183, startKg: 97, targetMin: 80, targetMax: 84, l4: 'vulnerable_bracing', pushupBase: 3, pullupBase: 0,
+    programStart: dateKey(Date.now()), ketoStart: '2026-11-07', wake: '06:00', requireGP: false, gpDate: '', pushupStage: 'incline', downgradeMonday: true, redFlagClearedAt: 0 },
+  fasts: { list: [], refeeds: [] },
+  months: {},
+};
+const UI = { view: 'today', sheet: null, timer: null, msg: {}, trainDow: null, draft: null, saving: 'local', toast: null };
+
+/* ---------- storage: private db docs, local cache as fallback ---------- */
+let col = null, dirty = new Set(), flushT = null, chains = {};
+function month(t) { const k = monthKey(t); return S.months[k] || (S.months[k] = { days: {}, checkins: [], weights: [], meals: [], workouts: [] }); }
+function day(k) { const m = month(fromKey(k)); return m.days[k] || (m.days[k] = {}); }
+function docBody(id) {
+  if (id === 'profile') return S.profile;
+  if (id === 'fasts') return S.fasts;
+  return S.months[id.slice(2)];
+}
+function cacheLocal() { try { localStorage.setItem('reset-cache', JSON.stringify(S)); } catch (e) {} }
+function save(...ids) {
+  ids.forEach(i => dirty.add(i));
+  cacheLocal();
+  clearTimeout(flushT);
+  flushT = setTimeout(flush, 500);
+}
+const saveMonth = t => save('m-' + monthKey(t));
+/* Writes never queue behind a stuck call: each has a 15 s limit, failures stay dirty and retry with backoff. */
+const inflight = {};
+let retryMs = 3000;
+const withTimeout = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej({ code: 'timeout' }), ms))]);
+function flush() {
+  if (!col) return;
+  [...dirty].forEach(id => {
+    if (inflight[id]) return;
+    dirty.delete(id);
+    inflight[id] = true;
+    const body = JSON.parse(JSON.stringify(docBody(id) || {}));
+    UI.saving = 'saving'; paintStatus();
+    withTimeout(col.doc(id).set(body), 15000).then(() => {
+      retryMs = 3000; inflight[id] = false;
+      if (!dirty.size && !Object.values(inflight).some(Boolean)) { UI.saving = 'saved'; paintStatus(); }
+    }).catch(e => {
+      dirty.add(id); UI.saving = 'error'; UI.saveErr = (e && e.code) || 'unknown'; paintStatus();
+      try { console.warn('Save failed', id, e); } catch (x) {}
+    }).finally(() => {
+      inflight[id] = false;
+      if (dirty.size) { clearTimeout(flushT); flushT = setTimeout(flush, UI.saving === 'error' ? retryMs : 300); if (UI.saving === 'error') retryMs = Math.min(retryMs * 2, 60000); }
+    });
+  });
+}
+function paintStatus() {
+  const el = $('#status'); if (!el) return;
+  el.textContent = { local: IN_CLAUDE ? 'Saved on this device only' : 'Saved on this phone only. Connect sync in Settings.', saving: 'Saving…', saved: IN_CLAUDE ? 'Saved to your account' : 'Synced to your sheet', error: 'Not saved yet (' + (UI.saveErr || '') + '), retrying. Kept on this device meanwhile.', loading: 'Loading your log…', stale: 'Can’t reach your saved log yet. Kept on this device.' }[UI.saving] || '';
+}
+/* Snapshot merging: everything in the app is append-only, so union by timestamp/id — a stale snapshot can never drop a local entry. */
+const ARR = ['checkins', 'weights', 'meals', 'workouts', 'commutes'];
+function unionBy(a, b, key) {
+  const m = new Map();
+  (a || []).forEach(x => m.set(x[key], x));
+  (b || []).forEach(x => { const s = m.get(x[key]); m.set(x[key], s ? Object.assign({}, s, x) : x); });
+  return [...m.values()];
+}
+function mergeMonth(server, local) {
+  const out = { days: {} };
+  const ds = server.days || {}, dl = (local && local.days) || {};
+  new Set([...Object.keys(ds), ...Object.keys(dl)]).forEach(k => { out.days[k] = Object.assign({}, ds[k], dl[k]); });
+  ARR.forEach(k => { out[k] = unionBy(server[k], local && local[k], 't').sort((x, y) => x.t - y.t); });
+  // a stretch ticked on either copy stays ticked
+  out.commutes.forEach(c => { const s = (server.commutes || []).find(x => x.t === c.t); if (s && c.reminders) c.reminders.forEach(r => { const sr = (s.reminders || []).find(q => q.id === r.id); if (sr && sr.done) r.done = true; }); });
+  return out;
+}
+function pickFast(a, b) {
+  if (!a) return b; if (!b) return a;
+  if (!!a.endedAt !== !!b.endedAt) return a.endedAt ? a : b;
+  const n = f => (f.intake || []).length + (f.symptoms || []).length;
+  return n(b) >= n(a) ? b : a;
+}
+function mergeFasts(server, local) {
+  const m = new Map();
+  (server.list || []).forEach(f => m.set(f.id, f));
+  (local.list || []).forEach(f => m.set(f.id, pickFast(m.get(f.id), f)));
+  return { list: [...m.values()].sort((a, b) => a.startedAt - b.startedAt), refeeds: unionBy(server.refeeds, local.refeeds, 'id') };
+}
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+async function connect() {
+  try {
+    const c = JSON.parse(localStorage.getItem('reset-cache') || 'null');
+    if (c && c.profile) { Object.assign(S.profile, c.profile); S.fasts = c.fasts || S.fasts; S.months = c.months || {}; }
+  } catch (e) {}
+  render();
+  if (IN_CLAUDE) {
+    const [db, user] = await Promise.all([claude.use('db'), claude.use('user')]);
+    if (!db || !user) { UI.saving = 'local'; paintStatus(); return; }
+    const id = await user.id();
+    col = db.collection('data/users/' + id);
+  } else {
+    const cfg = syncCfg();
+    if (!cfg) { UI.saving = 'local'; paintStatus(); return; }
+    col = gasCol(cfg.url, cfg.code);
+  }
+  UI.saving = 'loading'; paintStatus();
+  const timer = setTimeout(() => { UI.saving = 'stale'; paintStatus(); }, 10000);
+  let first = true;
+  col.onSnapshot(snap => {
+    if (!snap.metadata || !snap.metadata.fromCache) clearTimeout(timer);
+    if (first && snap.metadata && !snap.metadata.fromCache && !snap.docs.length) {
+      first = false; UI.saving = 'saved';
+      if (Object.keys(S.months).length || S.fasts.list.length) save('profile', 'fasts', ...Object.keys(S.months).map(k => 'm-' + k));
+      else save('profile');
+      return;
+    }
+    if (snap.metadata && !snap.metadata.fromCache) first = false;
+    const seen = new Set();
+    snap.docs.forEach(d => {
+      const v = d.data(); if (!v) return;
+      seen.add(d.id);
+      if (d.id === 'profile') {
+        if (dirty.has('profile') || inflight.profile) return;
+        Object.assign(S.profile, v);
+      } else if (d.id === 'fasts') {
+        const merged = mergeFasts(v, S.fasts);
+        if (!same(merged, { list: v.list || [], refeeds: v.refeeds || [] })) dirty.add('fasts');
+        S.fasts = merged;
+      } else if (d.id.startsWith('m-')) {
+        const k = d.id.slice(2), merged = mergeMonth(v, S.months[k]);
+        if (!same(merged, mergeMonth(v, null))) dirty.add(d.id);
+        S.months[k] = merged;
+      }
+    });
+    // anything held locally that the account doesn't have yet gets pushed up
+    if (snap.metadata && !snap.metadata.fromCache) {
+      Object.keys(S.months).forEach(k => { if (!seen.has('m-' + k)) dirty.add('m-' + k); });
+      if (!seen.has('fasts') && (S.fasts.list.length || S.fasts.refeeds.length)) dirty.add('fasts');
+    }
+    if (dirty.size) { clearTimeout(flushT); flushT = setTimeout(flush, 300); }
+    if (UI.saving === 'loading' || UI.saving === 'stale') UI.saving = 'saved';
+    cacheLocal(); softRender();
+  }, () => { clearTimeout(timer); UI.saving = 'error'; paintStatus(); });
+}
+/* ---------- standalone sync: Google Apps Script web app ---------- */
+const IN_CLAUDE = !window.RESET_STANDALONE && !!(window.claude && window.claude.use);
+function syncCfg() { try { const c = JSON.parse(localStorage.getItem('reset-sync') || 'null'); return c && c.url && c.code ? c : null; } catch (e) { return null; } }
+function gasCall(url, code, body) {
+  return fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ code }, body)) })
+    .then(r => r.json()).then(j => { if (!j.ok) throw { code: j.error || 'error' }; return j; });
+}
+function gasCol(url, code) {
+  let cb = null, polling = false;
+  const poll = () => {
+    if (!cb || polling) return; polling = true;
+    gasCall(url, code, { op: 'list' })
+      .then(j => cb({ metadata: { fromCache: false }, docs: j.docs.map(d => ({ id: d.id, data: () => d.data })) }))
+      .catch(e => { UI.saving = 'error'; UI.saveErr = (e && e.code) || 'offline'; paintStatus(); })
+      .finally(() => { polling = false; });
+  };
+  return {
+    doc: id => ({ set: data => gasCall(url, code, { op: 'set', id, data }) }),
+    onSnapshot(next) {
+      cb = next; poll();
+      setInterval(() => { if (!document.hidden && !dirty.size) poll(); }, 120000);
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) poll(); });
+      return () => { cb = null; };
+    },
+  };
+}
+/* ---------- backup ---------- */
+function backupJson() { return JSON.stringify({ app: 'foundational-reset', exportedAt: new Date().toISOString(), profile: S.profile, fasts: S.fasts, months: S.months }); }
+async function exportBackup() {
+  const name = 'foundational-reset-backup-' + dateKey(Date.now()) + '.json';
+  if (IN_CLAUDE) {
+    const dl = await claude.use('downloads');
+    if (!dl) return toast('Saving files isn’t available here.');
+    try { await dl.save({ filename: name, data: backupJson() }); } catch (e) { if (e && e.code !== 'declined') toast('Backup not saved (' + (e.code || 'error') + ').'); }
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([backupJson()], { type: 'application/json' }));
+  a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function importBackup(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    let b; try { b = JSON.parse(r.result); } catch (e) { return toast('That file isn’t a backup from this app.'); }
+    if (!b || b.app !== 'foundational-reset' || !b.months) return toast('That file isn’t a backup from this app.');
+    Object.assign(S.profile, b.profile || {});
+    S.fasts = mergeFasts(b.fasts || { list: [], refeeds: [] }, S.fasts);
+    Object.keys(b.months).forEach(k => { S.months[k] = mergeMonth(b.months[k], S.months[k]); });
+    save('profile', 'fasts', ...Object.keys(S.months).map(k => 'm-' + k));
+    toast('Backup imported: ' + Object.keys(b.months).length + ' month(s).'); render();
+  };
+  r.readAsText(file);
+}
+let pendingRender = false;
+function softRender() {
+  const a = document.activeElement;
+  if (a && (a.tagName === 'INPUT' || a.tagName === 'SELECT') && $('#app').contains(a)) { pendingRender = true; return; }
+  render();
+}
+document.addEventListener('focusout', () => { if (pendingRender) { pendingRender = false; setTimeout(render, 0); } });
+
+/* ---------- derived ---------- */
+function ctx() {
+  const now = Date.now(), k = dateKey(now);
+  return { now, k, rf: redFlagLocked(S), sg: safeguard(S, now), fast: activeFast(S), refeed: openRefeed(S, now), phase: macroPhase(S, now), gate: canStartBlock(S, now), d: dayLog(S, k) };
+}
+function weekKeys(now) {
+  const d = new Date(now); const off = (d.getDay() + 6) % 7;
+  const mon = fromKey(dateKey(now)).getTime() - off * DAY;
+  return [0, 1, 2, 3, 4, 5, 6].map(i => dateKey(mon + i * DAY));
+}
+/* ---------- Commute Conditioning Module ---------- */
+const ROUTE_KM = 3.5, XERO_KM = 1.5, WALK_ALIGN_MIN = 40;
+const STRETCH = {
+  hip: { label: '30-second standing hip flexor stretch', cue: 'Half-lunge stance, tuck the pelvis, squeeze the back glute. Tall spine. Switch sides halfway.' },
+  calf: { label: '30-Second Extended Calf Stretch', cue: 'Hands on a wall, back leg straight, heel down. Ease in, no bouncing. Switch sides halfway.' },
+};
+function commutePlan(now) {
+  const p = S.profile, mode = p.commuteMode || 'walk', xero = !!p.xero;
+  const xDay = xero && p.xeroSince ? daysBetween(fromKey(p.xeroSince), now) + 1 : null;
+  const limited = xero && mode === 'walk' && xDay != null && xDay <= 7;
+  return { mode, xero, xDay, limited, km: limited ? XERO_KM : ROUTE_KM };
+}
+function commuteCard(c) {
+  const cp = commutePlan(c.now);
+  const all = allOf(S, 'commutes');
+  const wk = new Set(weekKeys(c.now));
+  const alignWeek = all.filter(x => wk.has(dateKey(x.t))).reduce((s, x) => s + (x.alignMin || 0), 0);
+  const today = all.filter(x => dateKey(x.t) === c.k);
+  const desc = cp.mode === 'walk'
+    ? (cp.limited ? `Sandal week, day ${cp.xDay} of 7: keep it to ${XERO_KM} km. Park halfway and walk the rest to protect your calves.`
+                  : `Full ${ROUTE_KM} km route. Logs ${WALK_ALIGN_MIN} min of Active Spinal Alignment.`)
+    : `Full ${ROUTE_KM} km ride. Stretch your hip flexors when you arrive.`;
+  return `<div class="card"><div class="row"><h2>Commute conditioning</h2><span class="small muted"><span class="num" style="font-size:22px;color:var(--ink)">${alignWeek}</span> min alignment this week</span></div>
+    <div class="seg" role="group" aria-label="Commute mode"><button class="sm" aria-pressed="${cp.mode === 'walk'}" data-act="commuteMode" data-v="walk">Walk to office</button><button class="sm" aria-pressed="${cp.mode === 'cycle'}" data-act="commuteMode" data-v="cycle">Cycle to office</button></div>
+    <label class="row"><span>Wearing 3mm Xero sandals</span><input type="checkbox" id="xero" data-act="xero" ${cp.xero ? 'checked' : ''}></label>
+    <p class="small">${desc}</p>
+    <div class="btns"><button class="primary" data-act="logCommute">Log ${cp.km} km ${cp.mode === 'walk' ? 'walk' : 'ride'}</button></div>
+    ${today.map(x => `<div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:10px">
+      <div class="row small"><span>${x.mode === 'walk' ? 'Walked' : 'Cycled'} ${x.km} km${x.partial ? ' (partial)' : ''} · ${fmtTime(x.t)}</span>${x.alignMin ? `<span class="tag">${x.alignMin} min alignment</span>` : ''}</div>
+      ${(x.reminders || []).map(r => `<div class="row small"><span>${r.done ? '✓ ' : ''}${STRETCH[r.id].label}</span>${r.done ? '<span class="muted">Done</span>' : `<button class="sm" data-act="commuteStretch" data-t="${x.t}" data-r="${r.id}">Start 30 s</button>`}</div>`).join('')}
+    </div>`).join('')}
+  </div>`;
+}
+/* ---------- Keto Engine ---------- */
+const KETO_DAYS = 14;
+const KLEVEL = {
+  none:  { label: 'Not in ketosis', short: 'None', range: 'under 0.5', idx: 0 },
+  light: { label: 'Light ketosis', short: 'Light', range: '0.5–1.4', idx: 1 },
+  deep:  { label: 'Deep ketosis', short: 'Deep', range: '1.5–3.0', idx: 2 },
+  high:  { label: 'Very high', short: 'V. high', range: 'over 3.0', idx: 3 },
+};
+const gki = (g, k) => (g != null && k != null && k > 0) ? g / k : null;
+const levelFromMmol = m => m < 0.5 ? 'none' : m < 1.5 ? 'light' : m <= 3 ? 'deep' : 'high';
+const KETO_FOODS = [['protein', 'Grass-fed protein', 'Beef, venison, bull'], ['tallow', 'Tallow / animal fat', 'Bull tallow, butter, dripping'], ['broth', 'Marrow / bone broth', '250 ml'], ['monoFat', 'Avocado / olive oil', 'Plant fats']];
+function morningPain(k) {
+  const day = allCheckins(S).filter(c => dateKey(c.t) === k);
+  const m = day.find(c => c.trigger === 'morning');
+  return m ? m.pain : null;
+}
+function ketoTrial(now) {
+  const start = fromKey(S.profile.ketoStart || dateKey(now));
+  const dayNo = daysBetween(start, now) + 1;
+  const days = Array.from({ length: KETO_DAYS }, (_, i) => {
+    const k = dateKey(start.getTime() + i * DAY + 2 * HOUR);
+    const d = dayLog(S, k);
+    return { k, i, future: k > dateKey(now), ketone: d.ketone || null, glucose: d.glucose != null ? d.glucose : null, pain: morningPain(k), sugar: !!d.ketoSugar, lowCarb: !!d.ketoLowCarb };
+  });
+  const paired = days.filter(d => d.ketone && d.pain != null);
+  const scored = days.filter(d => d.pain != null);
+  const isK = d => d.ketone && KLEVEL[d.ketone.level].idx >= 1;
+  const inK = scored.filter(isK).map(d => d.pain);
+  const outK = scored.filter(d => !isK(d)).map(d => d.pain);
+  return { dayNo, done: dayNo > KETO_DAYS, days, paired: paired.length, inK: { n: inK.length, avg: avg(inK) }, outK: { n: outK.length, avg: avg(outK) } };
+}
+function ketoCompareText(t) {
+  if (t.inK.n >= 2 && t.outK.n >= 2) return `Morning back pain averages ${t.inK.avg.toFixed(1)} on confirmed ketosis days (${t.inK.n}) and ${t.outK.avg.toFixed(1)} on other days (${t.outK.n}).`;
+  if (t.inK.n >= 2) return `Morning back pain averages ${t.inK.avg.toFixed(1)} across ${t.inK.n} confirmed ketosis days. Needs 2+ other mornings to compare.`;
+  return `${t.inK.n} confirmed ketosis day${t.inK.n === 1 ? '' : 's'} so far. Do the morning check-in daily; test ketones when you think you’re in.`;
+}
+function foodCounts(k) {
+  const ms = allMeals(S).filter(m => dateKey(m.t) === k);
+  return { protein: ms.filter(m => m.cat === 'protein').length, fat: ms.filter(m => m.cat === 'tallow' || m.cat === 'monoFat').length };
+}
+function ketoCard(c, compact) {
+  const t = ketoTrial(c.now), d = c.d, fc = foodCounts(c.k);
+  const kt = d.ketone, mp = morningPain(c.k);
+  const m = UI.msg.meal;
+  const trialTag = t.done ? `<span class="tag plain">14-day trial complete</span>` : t.dayNo < 1 ? `<span class="tag plain">Starts ${fmtDate(fromKey(S.profile.ketoStart))}</span>` : `<span class="tag">Day ${t.dayNo} of ${KETO_DAYS}</span>`;
+  return `<div class="card"><div class="row"><h2>Keto engine</h2>${trialTag}</div>
+    <div class="grid2">
+      <div class="stat"><span class="small muted">Ketones this morning</span><span class="num" style="font-size:24px">${kt ? (kt.mmol != null ? kt.mmol.toFixed(1) + ' mmol/L' : KLEVEL[kt.level].short) : '–'}</span><span class="small muted">${kt ? KLEVEL[kt.level].label : 'Not tested'}</span></div>
+      <div class="stat"><span class="small muted">Morning back pain</span><span class="num" style="font-size:24px">${mp != null ? mp + '/10' : '–'}</span><span class="small muted">${mp != null ? 'Paired with ketones' : 'Not logged'}</span></div>
+    </div>
+    ${d.glucose != null ? `<p class="small">Glucose <span class="num">${d.glucose.toFixed(1)}</span> mmol/L${kt && kt.mmol ? ` · GKI <span class="num">${gki(d.glucose, kt.mmol).toFixed(1)}</span>` : ''}</p>` : ''}
+    ${mp == null ? `<div class="btns"><button class="primary" data-act="morningCheckin">Morning check-in + meter</button></div>` : ''}
+    <div class="stack" style="gap:0">
+      <label class="check" style="grid-template-columns:30px 1fr"><input type="checkbox" id="k-sugar" data-act="ketoTick" data-k="ketoSugar" ${d.ketoSugar ? 'checked' : ''}><span><b>Zero sugar</b> <span class="muted small">no added sugar, honey or fruit juice</span></span></label>
+      <label class="check" style="grid-template-columns:30px 1fr"><input type="checkbox" id="k-carb" data-act="ketoTick" data-k="ketoLowCarb" ${d.ketoLowCarb ? 'checked' : ''}><span><b>Low-carb whole foods only</b> <span class="muted small">no bread, grains or potatoes</span></span></label>
+    </div>
+    <div class="row small"><span>Protein <span class="num">${fc.protein}</span>/2 · Fat <span class="num">${fc.fat}</span>/2 · Broth <span class="num">${d.broth || 0}</span>/250 ml</span>${compact ? '' : '<span class="muted">one of each per meal</span>'}</div>
+    <div class="grid-food">${KETO_FOODS.map(([cat, l, sub]) => `<button data-act="meal" data-cat="${cat}">${l}<small>${sub}</small></button>`).join('')}</div>
+    ${!compact && m ? `<div class="msg ${m.v === 'warn' ? 'warn' : 'ok'}">${esc(m.msg)}</div>` : ''}
+    ${compact ? `<p class="muted small">${esc(ketoCompareText(t))}</p>` : (() => { const ms = allMeals(S).filter(x => dateKey(x.t) === c.k); return ms.length ? `<div class="list">${ms.slice().reverse().map(x => `<div class="li"><span>${CAT[x.cat].label}</span><span class="muted">${fmtTime(x.t)}</span></div>`).join('')}</div>` : '<p class="muted small">Two meals inside the 8 h window, each with protein and fat.</p>'; })()}
+  </div>`;
+}
+function ketoChart(c) {
+  const t = ketoTrial(c.now);
+  const W = 400, H = 200, L = 46, R = 28, T = 12, B = 26, cw = (W - L - R) / KETO_DAYS;
+  const yk = i => H - B - (i + 1) / 4 * (H - T - B);
+  const yp = v => T + (10 - v) / 10 * (H - T - B);
+  const cx = i => L + cw * i + cw / 2;
+  const pts = t.days.filter(d => d.pain != null);
+  return `<div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Ketone level and morning back pain over the 14-day trial">
+    ${['None', 'Light', 'Deep', 'V. high'].map((l, i) => `<line x1="${L}" x2="${W - R}" y1="${yk(i)}" y2="${yk(i)}" stroke="var(--line)"/><text x="${L - 6}" y="${yk(i) + 4}" text-anchor="end" font-size="10" fill="var(--keto)">${l}</text>`).join('')}
+    ${[0, 5, 10].map(v => `<text x="${W - R + 6}" y="${yp(v) + 4}" font-size="10" fill="var(--chart-p)">${v}</text>`).join('')}
+    ${t.days.map(d => d.ketone ? `<rect x="${cx(d.i) - cw * 0.3}" y="${yk(KLEVEL[d.ketone.level].idx)}" width="${cw * 0.6}" height="${H - B - yk(KLEVEL[d.ketone.level].idx)}" rx="2" fill="var(--keto)" opacity=".75"/>` : '').join('')}
+    ${pts.length > 1 ? `<path d="M${pts.map(d => cx(d.i).toFixed(1) + ' ' + yp(d.pain).toFixed(1)).join(' L')}" fill="none" stroke="var(--chart-p)" stroke-width="2.5"/>` : ''}
+    ${pts.map(d => `<circle cx="${cx(d.i)}" cy="${yp(d.pain)}" r="3.5" fill="var(--chart-p)"/>`).join('')}
+    ${t.days.map(d => (d.i % 2 === 0 || d.i === KETO_DAYS - 1) ? `<text x="${cx(d.i)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="${d.k === c.k ? 'var(--ink)' : 'var(--muted)'}">${d.i + 1}</text>` : '').join('')}
+    ${!t.paired && !pts.length ? `<text x="${(W + L - R) / 2}" y="${H / 2 - 10}" text-anchor="middle" font-size="13" fill="var(--muted)">Your 14 days fill in here</text>` : ''}
+  </svg></div>`;
+}
+function hangSecsWeek(now) {
+  const ks = new Set(weekKeys(now));
+  let s = 0;
+  ks.forEach(k => { s += dayLog(S, k).hangSecs || 0; });
+  allWorkouts(S).filter(w => ks.has(w.date)).forEach(w => w.items.forEach(it => { if (it.ex === 'hang' || it.ex === 'traction') it.sets.forEach(x => { if (x.ok) s += x.secs || 0; }); }));
+  return s;
+}
+
+/* ---------- views ---------- */
+function render() {
+  const c = ctx();
+  const views = { today: vToday, train: vTrain, fast: vFast, progress: vProgress, setup: vSetup };
+  $('#app').innerHTML = (views[UI.view] || vToday)(c) + `<p id="status" class="status"></p>`;
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-current', t.dataset.view === UI.view ? 'page' : 'false'));
+  paintStatus();
+  $('#sheet').innerHTML = UI.sheet ? sheetHtml(c) : '';
+  $('#sheet').hidden = !UI.sheet;
+  if (UI.toast) { $('#toast').textContent = UI.toast; $('#toast').hidden = false; } else $('#toast').hidden = true;
+}
+function header(c, title) {
+  return `<div class="top"><div class="stack" style="gap:4px"><span class="muted small">${fmtDate(c.now)}</span><h1>${title}</h1></div><span class="tag">${esc(c.phase.label)}</span></div>`;
+}
+function banners(c) {
+  let h = '';
+  if (c.rf) h += `<div class="banner danger" role="alert"><b>Stop: red flag logged</b><p>New numbness, weakness or bladder/bowel change needs a doctor today. Training and block fasts are paused until you clear this in Settings.</p></div>`;
+  if (c.sg.active) h += `<div class="banner warn"><b>Safeguard on</b><p>Back pain ${c.sg.trigger.pain}/10 logged ${fmtDate(c.sg.trigger.t)}. Wednesday and Friday are downgraded${S.profile.downgradeMonday !== false ? ', Monday is carries only' : ''}. ${c.sg.need - c.sg.calm} calm day${c.sg.need - c.sg.calm === 1 ? '' : 's'} with a check-in to go.</p></div>`;
+  return h;
+}
+function fastCard(c, compact) {
+  if (c.fast) {
+    const f = c.fast, h = elapsedH(f, c.now), pct = Math.min(100, h / f.targetH * 100);
+    const nu = nextUnlock(f.type, h);
+    return `<div class="card"><div class="row"><h2>${FAST_TYPES[f.type].label}</h2><span class="num" style="font-size:22px">${fmtH(h)} / ${f.targetH}:00</span></div>
+      <div class="bar"><i style="width:${pct}%"></i>${f.type === 'block3' ? '<span class="mark" style="left:66.6%"></span>' : f.type === 'block5' ? '<span class="mark" style="left:60%"></span>' : ''}</div>
+      <p><b>Now:</b> ${phaseLabel(f.type, h)}${nu ? ` · ${nu.what} unlocks in ${fmtH(nu.inH)}` : ''}</p>
+      ${f.type === 'daily' ? (UI.editStart ? `<form data-form="editStart" class="row" style="flex-wrap:nowrap;gap:8px"><label class="f" style="flex:1">Actually started at<input id="f-edit" type="time" value="${hhmm(f.startedAt)}"></label><button class="sm primary">Save</button><button class="sm" type="button" data-act="cancelEditStart">Cancel</button></form>` : `<div class="row small"><span class="muted">Started ${whenLabel(f.startedAt, c.now)}</span><button class="sm ghost" data-act="editStart">Change</button></div>`) : `<p class="muted small">Started ${whenLabel(f.startedAt, c.now)}</p>`}
+      ${saltWarning(f, c.now) ? `<div class="msg warn">Salt is low (${saltLast24(f, c.now)} servings in 24 h). Have a glass of salt + lemon water now.</div>` : ''}
+      ${compact ? `<div class="btns"><button class="sm" data-go="fast">Open fast</button></div>` : ''}</div>`;
+  }
+  if (c.refeed) {
+    const r = c.refeed;
+    return `<div class="card"><div class="row"><h2>Refeed protection</h2><span class="tag warn">Day ${r.day} of ${r.days}</span></div>
+      <p>Allowed today: ${REFEED[r.days][r.day].filter(x => x !== 'water').map(x => CAT[x].label).join(', ')}.</p>
+      ${compact ? `<div class="btns"><button class="sm" data-go="fast">Log food</button></div>` : ''}</div>`;
+  }
+  const last = (S.fasts.list || []).filter(f => f.type === 'daily' && f.endedAt).pop();
+  return `<div class="card"><div class="row"><h2>Fasting</h2>${last ? `<span class="muted small">Last: ${fmtH(elapsedH(last))} h, ended ${fmtDate(last.endedAt)}</span>` : ''}</div>
+    <p class="muted small">16 h overnight, 8 h window, two whole-food meals.</p>
+    ${UI.pickStart ? `<form data-form="startEarlier" class="row" style="flex-wrap:nowrap;gap:8px"><label class="f" style="flex:1">Last bite at<input id="f-start" type="time" value="${hhmm(c.now - 30 * 60000)}"></label><button class="sm primary">Start</button><button class="sm" type="button" data-act="cancelPickStart">Cancel</button></form>`
+      : `<div class="btns"><button class="primary" data-act="startDaily">Start now</button><button data-act="pickStart">Finished eating earlier…</button></div>`}</div>`;
+}
+function vToday(c) {
+  const d = c.d, k = c.k;
+  const lastW = allWeights(S).pop();
+  const todays = allCheckins(S).filter(x => dateKey(x.t) === k);
+  const plan = planFor(S, c.now, { now: c.now });
+  const inter = c.phase.key === 'interstitial' ? interstitialGaps(S, k) : null;
+  const wk = weekKeys(c.now);
+  const trainDays = { 1: 1, 3: 1, 5: 1 };
+  const wo = new Set(allWorkouts(S).map(w => w.date));
+  const woDown = new Set(allWorkouts(S).filter(w => w.downgraded).map(w => w.date));
+  const dot = (kk, i, kind) => {
+    const future = kk > k;
+    if (kind === 'train') {
+      if (wo.has(kk)) return `<div class="dot ${woDown.has(kk) ? 'half' : 'done'}"></div>`;
+      if (!trainDays[(i + 1) % 7]) return '<div class="dot none"></div>';
+      return `<div class="dot ${future || kk === k ? 'due' : ''}"></div>`;
+    }
+    return `<div class="dot ${dayLog(S, kk).kettle ? 'done' : (future || kk === k) ? 'due' : ''}"></div>`;
+  };
+  const hs = hangSecsWeek(c.now);
+  const gate = c.gate;
+  return header(c, 'Today') + banners(c) + fastCard(c, true) + `
+  <div class="card"><h2>Today’s list</h2><div class="list" style="gap:0">
+    <div class="check"><div class="box ${d.kettle ? 'on' : ''}"></div><div><b>Kettle squat, 60 s</b><div class="muted small">Boiling the kettle? Grab your bell.</div></div><button class="sm ${d.kettle ? 'ghost' : 'primary'}" data-act="kettleTimer">${d.kettle ? 'Again' : 'Start'}</button></div>
+    <div class="check"><div class="box ${todays.length ? 'on' : ''}"></div><div><b>Back check-in</b><div class="muted small">${todays.length ? 'Latest ' + todays[todays.length - 1].pain + '/10 at ' + fmtTime(todays[todays.length - 1].t) : 'Sneeze, cough or morning'}</div></div><button class="sm primary" data-act="checkin">Sneeze test</button></div>
+    <div class="check"><div class="box ${(d.broth || 0) >= 250 ? 'on' : ''}"></div><div><b>Bone broth</b><div class="muted small"><span class="num">${d.broth || 0}</span> ml today${d.brothMeal1 ? ' · with meal 1' : ''}</div></div><div class="btns"><button class="sm" data-act="broth">+250 ml</button></div></div>
+    <div class="check"><div class="box ${d.weighed ? 'on' : ''}"></div><div><b>Weigh in</b><div class="muted small">${lastW ? 'Last ' + lastW.kg.toFixed(1) + ' kg, ' + fmtDate(lastW.t) : 'Start ' + S.profile.startKg + ' kg'}</div></div>
+      <form data-form="weigh" class="btns" style="flex-wrap:nowrap"><input id="w-kg" type="number" inputmode="decimal" step="0.1" min="40" max="250" placeholder="kg" style="width:86px" aria-label="Weight in kg"><button class="sm">Log</button></form></div>
+    <div class="check"><div class="box ${d.workout ? 'on' : ''}"></div><div><b>${esc(plan.title)}</b><div class="muted small">${plan.items.length ? (plan.downgraded ? 'Downgraded by safeguard' : esc(plan.note)) : esc(plan.note)}</div></div>${plan.items.length ? `<button class="sm" data-go="train">Open</button>` : ''}</div>
+  </div>
+  ${(d.broth || 0) > 0 ? `<label class="row small"><span>Broth taken with meal 1</span><input type="checkbox" id="b-m1" data-act="brothMeal1" ${d.brothMeal1 ? 'checked' : ''}></label>` : ''}
+  </div>
+  ${inter ? `<div class="card"><div class="row"><h2>Interstitial rules</h2><span class="muted small">Day ${c.phase.day} of 21+</span></div>${inter.map(g => `<div class="row small"><span>${g.label}</span><span class="tag ${g.done ? '' : 'plain'}">${g.done ? 'Done' : 'Not yet'}</span></div>`).join('')}
+    <label class="row small"><span>Had alcohol today</span><input type="checkbox" id="alc" data-act="alcohol" ${d.alcohol ? 'checked' : ''}></label></div>` : ''}
+  <div class="card"><h2>This week</h2><div class="week">
+    <span></span>${wk.map(kk => `<span class="${kk === k ? 'today-col' : 'muted'} small">${DOW[fromKey(kk).getDay()][0]}</span>`).join('')}
+    <span class="lbl">Train</span>${wk.map((kk, i) => dot(kk, i, 'train')).join('')}
+    <span class="lbl">Kettle</span>${wk.map((kk, i) => dot(kk, i, 'kettle')).join('')}
+  </div><p class="muted small">Filled: done · half: done downgraded · dotted: rest day</p></div>
+  ${c.refeed || (c.fast && c.fast.type !== 'daily') ? '' : ketoCard(c, true)}
+  ${commuteCard(c)}
+  <div class="card"><div class="row"><h2>Decompression</h2><span><span class="num" style="font-size:24px">${fmtClock(hs)}</span> <span class="muted small">hung this week</span></span></div>
+    <div class="btns"><button data-act="hangTimer" ${c.rf ? 'disabled' : ''}>${c.sg.active ? 'Start traction timer (30 s)' : 'Start hang timer (25 s)'}</button></div></div>
+  <div class="card"><div class="row"><h2>Next block fast</h2>${gate.ok ? `<span class="tag">Ready</span>` : `<span class="tag ${gate.lockout ? 'danger' : 'plain'}">Locked${gate.remaining ? ' · ' + gate.remaining + ' d' : ''}</span>`}</div>
+    <p class="small">${gate.type ? FAST_TYPES[gate.type].label : 'Block fast'}${gate.ok ? ' can be started from the Fast tab.' : ': ' + esc(gate.reasons[0] || '')}</p></div>`;
+}
+
+/* ---------- Train ---------- */
+function vTrain(c) {
+  const dow = UI.trainDow != null ? UI.trainDow : new Date(c.now).getDay();
+  const plan = planFor(S, c.now, { now: c.now, dow });
+  if (!UI.draft || UI.draft.key !== plan.key + dow + (plan.downgraded ? 'd' : '')) UI.draft = makeDraft(plan, dow);
+  const dr = UI.draft;
+  const done = allWorkouts(S).filter(w => w.date === c.k);
+  const chips = [[1, 'Mon · Heavy'], [3, 'Wed · ABC'], [5, 'Fri · Bodyweight']];
+  return header(c, 'Train') + banners(c) + `
+  <div class="card"><h2>Session</h2><div class="btns">${chips.map(([d, l]) => `<button class="sm ${d === dow ? 'primary' : ''}" data-act="pickDay" data-dow="${d}">${l}</button>`).join('')}</div>
+  <p class="muted small">Today is ${DOW[new Date(c.now).getDay()]}. Pick another session if you swapped days.</p></div>
+  <div class="card"><div class="row"><h3>${esc(plan.title)}</h3>${plan.downgraded ? '<span class="tag warn">Downgraded</span>' : ''}</div><p class="muted">${esc(plan.note)}</p>
+  ${plan.items.length ? dr.items.map((it, ii) => exHtml(it, ii)).join('') : ''}
+  ${plan.items.length ? `<div class="btns"><button class="primary" data-act="saveSession">Save session</button></div>` : ''}
+  ${UI.msg.train ? `<div class="msg ok">${esc(UI.msg.train)}</div>` : ''}
+  </div>
+  <div class="card"><h2>Progression</h2>
+    <div class="row small"><span>Pushups</span><span class="tag ${S.profile.pushupStage === 'floor' ? '' : 'plain'}">${S.profile.pushupStage === 'floor' ? 'Floor unlocked' : 'Incline: floor at 5 × 10 good reps'}</span></div>
+    <div class="row small"><span>Pull-up ladder</span><span class="tag ${pullupStage(S, c.now, c.sg.active) === 2 ? '' : 'plain'}">Stage ${pullupStage(S, c.now, c.sg.active)}${pullupStage(S, c.now, c.sg.active) === 1 ? ' · negatives at week 5 + under 92 kg' : ' · negatives'}</span></div>
+    <div class="row small"><span>Programme week</span><span class="num">${weekNo(S, c.now)}</span></div>
+  </div>
+  ${done.length ? `<div class="card"><h2>Logged today</h2><div class="list">${done.map(w => `<div class="li"><span>${esc(w.title)}</span><span class="muted">${w.downgraded ? 'downgraded · ' : ''}${fmtTime(w.t)}</span></div>`).join('')}</div></div>` : ''}`;
+}
+function makeDraft(plan, dow) {
+  return { key: plan.key + dow + (plan.downgraded ? 'd' : ''), title: plan.title, dayKey: plan.key, downgraded: !!plan.downgraded, items: plan.items.map(it => ({
+    ...it, rounds: 0, sets: Array.from({ length: it.sets || 0 }, () => ({ reps: it.reps || 0, secs: it.secs || 0, metres: it.metres || 0, ok: true, done: false })) })) };
+}
+function exHtml(it, ii) {
+  const e = EX[it.ex];
+  const nSets = Array.isArray(it.sets) ? it.sets.length : it.sets;
+  const spec = it.kind === 'amrap' ? `${it.minutes} min AMRAP · ${it.rest ? it.rest + ' s rest between arms' : 'alternate arms, no rest'}${it.kg ? ' · ' + it.kg + ' kg' : ''}`
+    : it.kind === 'time' ? `${nSets} × ${it.secs} s` : it.kind === 'distance' ? `${nSets} × ${it.metres} m · ${it.kg} kg`
+    : `${nSets} × ${it.target || it.reps}${it.perSide ? ' ' + it.perSide : ''}${it.kg ? ' · ' + it.kg + ' kg' : ''}${it.cap ? ' · cap ' + it.cap : ''}`;
+  let body = '';
+  if (it.kind === 'amrap') body = `<div class="row"><span class="row" style="gap:8px">Rounds (both arms) <span class="step"><button class="sm" data-act="roundStep" data-i="${ii}" data-d="-1" aria-label="Fewer rounds">−</button><span class="num">${it.rounds}</span><button class="sm" data-act="roundStep" data-i="${ii}" data-d="1" aria-label="More rounds">+</button></span></span><button class="primary sm" data-act="amrap" data-i="${ii}">Start 10-min timer</button></div>`;
+  else body = `<div class="sets">${it.sets.map((s, si) => `<div class="set"><span class="num muted">${si + 1}</span>
+    ${it.kind === 'reps' ? stepper(ii, si, 'reps', s.reps) : it.kind === 'time' ? `<button class="sm" data-act="setTimer" data-i="${ii}" data-s="${si}">${s.done ? '✓ ' + s.secs + ' s' : 'Start ' + s.secs + ' s'}</button>` : `<button class="sm ${s.done ? '' : ''}" data-act="toggleSet" data-i="${ii}" data-s="${si}">${s.done ? '✓ ' : ''}${s.metres} m walked</button>`}
+    <label class="formok"><input type="checkbox" data-act="formOk" data-i="${ii}" data-s="${si}" ${s.ok ? 'checked' : ''}>Form OK</label></div>`).join('')}</div>`;
+  return `<div class="ex"><div class="row"><b>${e.name}</b><span class="muted small">${spec}</span></div><p class="muted small">${e.cue}</p>${body}</div>`;
+}
+function stepper(ii, si, f, v) {
+  return `<span class="step"><button class="sm" data-act="step" data-i="${ii}" data-s="${si}" data-d="-1" aria-label="Less">−</button><span class="num">${v}</span><button class="sm" data-act="step" data-i="${ii}" data-s="${si}" data-d="1" aria-label="More">+</button></span>`;
+}
+
+/* ---------- Fast ---------- */
+function vFast(c) {
+  let h = header(c, 'Fast') + banners(c) + fastCard(c, false);
+  if (c.fast) {
+    const f = c.fast, eh = elapsedH(f, c.now), ok = allowedAt(f.type, eh);
+    const intakeBtns = [['water', 'Salt water 250 ml'], ...(f.type !== 'daily' ? [['broth', 'Bone broth 250 ml']] : []), ...(f.type === 'block5' ? [['tallow', 'Tallow 1 tbsp']] : [])];
+    h += `<div class="card"><h2>Log intake</h2><div class="grid-food">${intakeBtns.map(([cat, l]) => `<button class="${ok.includes(cat) ? '' : 'locked'}" data-act="intake" data-cat="${cat}">${l}${ok.includes(cat) ? '' : '<small>Not yet</small>'}</button>`).join('')}</div>
+      ${UI.msg.intake ? `<div class="msg ${UI.msg.intake.v === 'blocked' ? 'danger' : 'ok'}">${esc(UI.msg.intake.msg)}</div>` : ''}
+      ${f.type !== 'daily' ? `<p class="small">Salt in last 24 h: <span class="num">${saltLast24(f, c.now)}</span> servings (1 = ⅛ tsp, aim 3+)</p>` : ''}
+      ${(f.intake || []).length ? `<div class="list">${f.intake.slice(-5).reverse().map(i => `<div class="li"><span>${CAT[i.cat].label}</span><span class="muted">${fmtDate(i.t)} ${fmtTime(i.t)}</span></div>`).join('')}</div>` : ''}</div>
+    <div class="card"><h2>How do you feel?</h2><div class="btns">${Object.entries(SYMPTOMS).map(([k, l]) => `<button class="sm ${ABORT_SYMPTOMS.includes(k) ? 'danger' : ''}" data-act="symptom" data-s="${k}">${l}</button>`).join('')}</div>
+      <p class="muted small">Red-outlined symptoms end the fast and start the refeed.</p></div>
+    <div class="card">${f.type === 'daily' && UI.pickEnd ? `<form data-form="endEarlier" class="row" style="flex-wrap:nowrap;gap:8px"><label class="f" style="flex:1">First meal at<input id="f-end" type="time" value="${hhmm(c.now)}"></label><button class="sm primary">Finish</button><button class="sm" type="button" data-act="cancelPickEnd">Cancel</button></form>` : ''}
+    <div class="btns">${f.type === 'daily' && !UI.pickEnd ? `<button class="${eh >= f.targetH ? 'primary' : ''}" data-act="endFast" data-how="${eh >= f.targetH ? 'completed' : 'aborted'}">${eh >= f.targetH ? 'Finish fast now' : 'End fast now'}</button><button data-act="pickEnd">Ate earlier…</button>` : f.type === 'daily' ? '' : eh >= f.targetH ? `<button class="primary" data-act="endFast" data-how="completed">Finish fast</button>` : UI.confirmEnd ? `<button class="danger" data-act="endFast" data-how="aborted">Yes, end early</button><button data-act="cancelEnd">Keep going</button>` : `<button data-act="askEnd">End early</button>`}</div></div>`;
+  } else if (c.refeed) {
+    h += refeedGrid(c);
+  } else {
+    h += mealsCard(c);
+  }
+  const g = c.gate;
+  h += `<div class="card"><div class="row"><h2>Block fast</h2>${g.type ? `<span class="tag plain">${FAST_TYPES[g.type].label}</span>` : ''}</div>`;
+  if (g.ok) h += `<p>${g.type === 'block3' ? '48 h water, salt + lemon, then 24 h bone broth. Refeed runs 3 days after.' : '72 h water + electrolytes, then 48 h broth + tallow. Refeed runs 5 days after.'}</p><div class="btns"><button class="primary" data-act="startBlock">Start ${FAST_TYPES[g.type].label}</button></div>`;
+  else if (g.lockout) h += `<div class="lock"><b>${LOCKOUT_MSG}</b><ul>${g.reasons.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>`;
+  else h += `<p class="muted">${esc(g.reasons.join(' '))}</p>`;
+  h += `</div>`;
+  const hist = (S.fasts.list || []).filter(f => f.endedAt).slice(-6).reverse();
+  if (hist.length) h += `<div class="card"><h2>Recent fasts</h2><div class="list">${hist.map(f => `<div class="li"><span>${FAST_TYPES[f.type].label}${f.state === 'aborted' ? ' (ended early)' : ''}</span><span class="num">${fmtH(elapsedH(f))} h</span></div>`).join('')}</div></div>`;
+  return h;
+}
+function refeedGrid(c) {
+  const r = c.refeed;
+  const cats = ['broth', 'fermented', 'softVeg', 'monoFat', 'tallow', 'protein', 'normal'];
+  const today = allMeals(S).filter(m => dateKey(m.t) === c.k);
+  const m = UI.msg.meal;
+  return `<div class="card"><div class="row"><h2>Refeed food log</h2><span class="tag warn">Day ${r.day} of ${r.days}</span></div>
+    <div class="grid-food">${cats.map(cat => { const open = REFEED[r.days][r.day].includes(cat); return `<button class="${open ? '' : 'locked'}" data-act="meal" data-cat="${cat}">${CAT[cat].label}${open ? '' : `<small>${unlockDay(r.days, cat) > r.days ? 'After refeed' : 'Day ' + unlockDay(r.days, cat)}</small>`}</button>`; }).join('')}</div>
+    <label class="f">Portion (g), for protein and sauerkraut<input id="m-g" type="number" inputmode="numeric" min="0" step="10" placeholder="e.g. 150"></label>
+    ${m ? `<div class="msg ${m.v === 'blocked' ? 'danger' : m.v === 'warn' ? 'warn' : 'ok'}">${esc(m.msg)}${m.v === 'warn' ? ` <button class="sm" data-act="mealOverride">Log anyway</button>` : ''}</div>` : ''}
+    ${today.length ? `<div class="list">${today.slice().reverse().map(x => `<div class="li"><span>${CAT[x.cat].label}${x.g ? ' · ' + x.g + ' g' : ''}${x.verdict === 'overridden' ? ' (overridden)' : ''}</span><span class="muted">${fmtTime(x.t)}</span></div>`).join('')}</div>` : ''}
+    <p class="muted small">Alcohol, sugar and heavy carbs stay off until the refeed finishes.</p></div>`;
+}
+function mealsCard(c) { return ketoCard(c, false); }
+
+/* ---------- Progress ---------- */
+function vProgress(c) {
+  const ws = allWeights(S), cs = allCheckins(S);
+  const p = S.profile;
+  const w7 = weightAvg(S, c.now, 7);
+  const firstPain = cs.length ? avg(cs.filter(x => x.t < cs[0].t + 7 * DAY).map(x => x.pain)) : null;
+  const pa = painAvg(S, c.now, 7).avg;
+  const lastHi = cs.filter(x => x.pain >= 4).pop();
+  let streak = 0; for (let t = c.now; ; t -= DAY) { if (dayLog(S, dateKey(t)).kettle) streak++; else if (dateKey(t) !== c.k) break; if (streak > 999) break; }
+  const head = ws.length && cs.length
+    ? `Down ${(p.startKg - (w7 ?? ws[ws.length - 1].kg)).toFixed(1)} kg since start. Back pain average ${firstPain != null && pa != null ? 'from ' + firstPain.toFixed(1) + ' to ' + pa.toFixed(1) : 'tracking'}.`
+    : 'Log weigh-ins and back check-ins. Both lines heading down together is the goal.';
+  const sug = suggestL4(pa);
+  return header(c, 'Progress') + `
+  <div class="card"><p style="font-size:19px"><b>${esc(head)}</b></p>${chartSvg(c)}
+  <div class="legend"><span><i style="background:var(--chart-w)"></i>Weight, 7-day avg (kg)</span><span><i style="background:var(--chart-p)"></i>Back pain, 7-day avg (0–10)</span><span><i style="background:var(--band);height:10px"></i>Target ${p.targetMin}–${p.targetMax} kg</span></div>
+  <p class="muted small">Shows a trend over time, not proof that one causes the other.</p></div>
+  <div class="card"><div class="row"><h2>Keto trial</h2><span class="muted small">${(() => { const t = ketoTrial(c.now); return t.done ? 'Complete' : t.dayNo < 1 ? 'Not started' : 'Day ' + t.dayNo + ' of ' + KETO_DAYS; })()}</span></div>
+    <p><b>${esc(ketoCompareText(ketoTrial(c.now)))}</b></p>${ketoChart(c)}
+    <div class="legend"><span><i style="background:var(--keto);height:10px"></i>Ketone level (morning)</span><span><i style="background:var(--chart-p)"></i>Morning back pain (0–10)</span></div>
+    <p class="muted small">“Other days” includes mornings you didn’t test. Weight loss, sleep and training change back pain too, so read this as a pattern to watch, not proof.</p></div>
+  <div class="card"><div class="stats">
+    <div class="stat"><span>To target band</span><span class="num">${w7 != null ? Math.max(0, w7 - p.targetMax).toFixed(1) : '–'}</span><span>kg</span></div>
+    <div class="stat"><span>Since last 4+ pain</span><span class="num">${lastHi ? daysBetween(lastHi.t, c.now) : '–'}</span><span>days</span></div>
+    <div class="stat"><span>Kettle streak</span><span class="num">${streak}</span><span>days</span></div></div></div>
+  <div class="card"><div class="row"><h2>L4 status</h2><span class="tag">${L4[p.l4]}</span></div>
+    ${sug && sug !== p.l4 ? `<p class="small">Your last 7 days suggest <b>${L4[sug]}</b>.</p><div class="btns"><button class="sm" data-act="setL4" data-v="${sug}">Update to ${L4[sug]}</button></div>` : `<p class="muted small">Matches your recent check-ins.</p>`}</div>
+  <div class="card"><h2>Recent check-ins</h2>${cs.length ? `<div class="list">${cs.slice(-6).reverse().map(x => `<div class="li"><span>${fmtDate(x.t)} ${fmtTime(x.t)} · ${esc(x.trigger)}${x.side ? ' · ' + esc(x.side) : ''}</span><span class="num">${x.pain}/10</span></div>`).join('')}</div>` : '<p class="muted small">None yet. Use the Sneeze test button on Today.</p>'}</div>`;
+}
+function rolling(points, days) {
+  return points.map((pt, i) => { const win = points.filter(q => q.t <= pt.t && q.t > pt.t - days * DAY); return { t: pt.t, v: avg(win.map(q => q.v)) }; });
+}
+function chartSvg(c) {
+  const W = 400, H = 240, L = 34, R = 30, T = 12, B = 26;
+  const p = S.profile;
+  let ws = allWeights(S).map(w => ({ t: w.t, v: w.kg }));
+  let cs = allCheckins(S).map(x => ({ t: x.t, v: x.pain }));
+  const example = !ws.length && !cs.length;
+  if (example) {
+    const s = c.now - 60 * DAY;
+    ws = Array.from({ length: 30 }, (_, i) => ({ t: s + i * 2 * DAY, v: 97 - i * 0.22 + Math.sin(i) * 0.4 }));
+    cs = Array.from({ length: 30 }, (_, i) => ({ t: s + i * 2 * DAY, v: Math.max(0, 6 - i * 0.17 + Math.cos(i) * 0.8) }));
+  }
+  const all = [...ws, ...cs].map(x => x.t);
+  const t0 = Math.min(...all), t1 = Math.max(c.now, ...all), span = Math.max(DAY, t1 - t0);
+  const wMax = Math.max(98, ...ws.map(x => x.v + 0.5)), wMin = Math.min(78, ...ws.map(x => x.v - 0.5));
+  const x = t => L + (t - t0) / span * (W - L - R);
+  const yw = v => T + (wMax - v) / (wMax - wMin) * (H - T - B);
+  const yp = v => T + (10 - v) / 10 * (H - T - B);
+  const line = (pts, y) => pts.length ? 'M' + pts.map(q => x(q.t).toFixed(1) + ' ' + y(q.v).toFixed(1)).join(' L') : '';
+  const wr = rolling(ws, 7), pr = rolling(cs, 7);
+  const wTicks = []; for (let v = Math.ceil(wMin / 5) * 5; v <= wMax; v += 5) wTicks.push(v);
+  const events = example ? [] : (S.fasts.list || []).filter(f => f.type !== 'daily').map(f => ({ t: f.startedAt, l: f.type === 'block3' ? 'B1' : 'B2' }));
+  const fmtD = t => { const d = new Date(t); return pad(d.getDate()) + '/' + pad(d.getMonth() + 1); };
+  const lw = wr[wr.length - 1], lp = pr[pr.length - 1];
+  return `<div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Weight and back pain over time">
+    <rect x="${L}" y="${yw(p.targetMax)}" width="${W - L - R}" height="${yw(p.targetMin) - yw(p.targetMax)}" fill="var(--band)"/>
+    ${wTicks.map(v => `<line x1="${L}" x2="${W - R}" y1="${yw(v)}" y2="${yw(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L - 6}" y="${yw(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)">${v}</text>`).join('')}
+    ${[0, 5, 10].map(v => `<text x="${W - R + 6}" y="${yp(v) + 4}" font-size="11" fill="var(--chart-p)">${v}</text>`).join('')}
+    ${events.map(e => `<line x1="${x(e.t)}" x2="${x(e.t)}" y1="${T}" y2="${H - B}" stroke="var(--muted)" stroke-dasharray="3 3"/><text x="${x(e.t) + 3}" y="${T + 10}" font-size="10" fill="var(--muted)">${e.l}</text>`).join('')}
+    ${ws.map(q => `<circle cx="${x(q.t)}" cy="${yw(q.v)}" r="2" fill="var(--chart-w)" opacity=".25"/>`).join('')}
+    <path d="${line(wr, yw)}" fill="none" stroke="var(--chart-w)" stroke-width="2.5" ${example ? 'stroke-dasharray="5 4" opacity=".5"' : ''}/>
+    <path d="${line(pr, yp)}" fill="none" stroke="var(--chart-p)" stroke-width="2.5" ${example ? 'stroke-dasharray="5 4" opacity=".5"' : ''}/>
+    ${!example && lw ? `<circle cx="${x(lw.t)}" cy="${yw(lw.v)}" r="4" fill="var(--chart-w)"/>` : ''}
+    ${!example && lp ? `<circle cx="${x(lp.t)}" cy="${yp(lp.v)}" r="4" fill="var(--chart-p)"/>` : ''}
+    <text x="${L}" y="${H - 8}" font-size="11" fill="var(--muted)">${fmtD(t0)}</text><text x="${W - R}" y="${H - 8}" font-size="11" fill="var(--muted)" text-anchor="end">${fmtD(t1)}</text>
+    ${example ? `<text x="${(W + L - R) / 2}" y="${H / 2}" text-anchor="middle" font-size="14" fill="var(--muted)">Example — your lines appear here</text>` : ''}
+  </svg></div>`;
+}
+
+/* ---------- Setup ---------- */
+function vSetup(c) {
+  const p = S.profile;
+  const f = (id, label, type, val, extra = '') => `<label class="f">${label}<input id="${id}" data-prof="${id.slice(2)}" type="${type}" value="${esc(val)}" ${extra}></label>`;
+  return header(c, 'Settings') + `
+  <div class="card"><h2>Profile</h2><div class="grid2">
+    ${f('p-startKg', 'Start weight (kg)', 'number', p.startKg, 'step="0.1"')}${f('p-heightCm', 'Height (cm)', 'number', p.heightCm)}
+    ${f('p-targetMin', 'Target low (kg)', 'number', p.targetMin, 'step="0.5"')}${f('p-targetMax', 'Target high (kg)', 'number', p.targetMax, 'step="0.5"')}
+    ${f('p-pushupBase', 'Pushup baseline', 'number', p.pushupBase)}${f('p-pullupBase', 'Pull-up baseline', 'number', p.pullupBase)}
+    ${f('p-ketoStart', 'Keto trial start (14 days)', 'date', p.ketoStart || '')}
+    ${f('p-programStart', 'Programme start', 'date', p.programStart)}${f('p-wake', 'Wake time', 'time', p.wake)}
+  </div>
+  <label class="f">L4 status<select id="p-l4" data-prof="l4">${Object.entries(L4).map(([k, l]) => `<option value="${k}" ${p.l4 === k ? 'selected' : ''}>${l}</option>`).join('')}</select></label></div>
+  <div class="card"><h2>Guardrails</h2>
+    <label class="row"><span>Require GP sign-off before block fasts</span><input type="checkbox" id="p-requireGP" data-prof="requireGP" ${p.requireGP ? 'checked' : ''}></label>
+    ${p.requireGP ? f('p-gpDate', 'GP sign-off date', 'date', p.gpDate) : ''}
+    <label class="row"><span>Safeguard also cuts Monday to carries</span><input type="checkbox" id="p-downgradeMonday" data-prof="downgradeMonday" ${p.downgradeMonday !== false ? 'checked' : ''}></label>
+    <label class="f">Pushup stage<select id="p-pushupStage" data-prof="pushupStage"><option value="incline" ${p.pushupStage !== 'floor' ? 'selected' : ''}>Incline bench</option><option value="floor" ${p.pushupStage === 'floor' ? 'selected' : ''}>Floor</option></select></label>
+    ${c.rf ? `<div class="lock"><b>Red flag active</b><p>Clear only once a doctor has checked you.</p><div class="btns">${UI.confirmClear ? `<button class="danger" data-act="clearRF">Yes, I’ve been checked</button><button data-act="cancelClear">Cancel</button>` : `<button data-act="askClear">Clear red flag</button>`}</div></div>` : ''}
+  </div>
+  ${IN_CLAUDE ? '' : (() => { const cfg = syncCfg() || {}; return `<div class="card"><h2>Sync</h2>
+    <p class="small muted">Your Google Sheet keeps your log. Both values are on the sheet’s Setup tab.</p>
+    <form data-form="sync" class="stack">
+      <label class="f">Web app address<input id="s-url" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/…/exec" value="${esc(cfg.url || '')}"></label>
+      <label class="f">Access code<input id="s-code" type="text" autocomplete="off" value="${esc(cfg.code || '')}"></label>
+      <div class="btns"><button class="primary">Connect</button>${cfg.url ? '<button type="button" data-act="syncOff">Disconnect</button>' : ''}</div>
+    </form></div>`; })()}
+  <div class="card"><h2>Backup</h2>
+    <p class="small muted">Save everything to a file, or bring in a backup. Importing merges entries, so nothing already here is lost.</p>
+    <div class="btns"><button data-act="exportBackup">Save backup file</button>${IN_CLAUDE ? '' : `<label class="sm" style="display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border:1px solid var(--line);border-radius:8px;font-family:var(--f-display);font-weight:600;font-size:18px;cursor:pointer">Import backup<input id="s-import" type="file" accept="application/json,.json" style="display:none"></label>`}</div></div>
+  <div class="card"><h2>About this build</h2><p class="small muted">${IN_CLAUDE ? 'Your log is private to you and saved to your account, so it follows you across devices.' : 'Your log is cached on this phone and synced to your Google Sheet.'} The morning kettle prompt needs a phone alarm; web pages can’t send notifications.</p></div>`;
+}
+
+/* ---------- sheets ---------- */
+function sheetHtml(c) {
+  const s = UI.sheet;
+  if (s.type === 'checkin') {
+    const tri = ['sneeze', 'cough', 'morning', 'post-workout'];
+    return `<div class="sheet-bg" data-act="closeSheet"><div class="sheet" role="dialog" aria-label="Back check-in" data-stop="1">
+      <div class="row"><h3>Back check-in</h3><button class="sm ghost" data-act="closeSheet">Close</button></div>
+      <div class="painval num" id="painv">${s.pain}</div>
+      <input type="range" id="c-pain" min="0" max="10" step="1" value="${s.pain}" data-act="pain" aria-label="Pain 0 to 10">
+      <div class="row small muted"><span>0 none</span><span>4+ triggers safeguard</span><span>10 worst</span></div>
+      <div class="stack"><span class="small muted">What triggered it</span><div class="seg">${tri.map(t => `<button class="sm" aria-pressed="${s.trigger === t}" data-act="ciSet" data-k="trigger" data-v="${t}">${t}</button>`).join('')}</div></div>
+      <div class="stack"><span class="small muted">Where</span><div class="seg">${['left', 'right', 'central'].map(t => `<button class="sm" aria-pressed="${s.side === t}" data-act="ciSet" data-k="side" data-v="${t}">${t}</button>`).join('')}</div></div>
+      <div class="stack" style="gap:0"><span class="small muted">Since last check-in, any new…</span>
+      ${s.trigger === 'morning' ? `<div class="stack"><span class="small muted">Blood meter (paired with this morning’s pain score)</span>
+        <label class="f">Glucose, mmol/L<input id="k-glu" type="number" inputmode="decimal" step="0.1" min="1" max="30" placeholder="e.g. 4.8" value="${s.glu != null ? s.glu : ''}"></label>
+        <label class="f">Ketones, mmol/L (only if you tested)<input id="k-mmol" type="number" inputmode="decimal" step="0.1" min="0" max="10" placeholder="e.g. 1.2" value="${s.mmol != null ? s.mmol : ''}"></label>
+        <span class="small muted">No strip used? Leave ketones blank. You can also pick a level by feel:</span>
+        <div class="seg" style="flex-wrap:wrap">${Object.entries(KLEVEL).map(([k, v]) => `<button class="sm" aria-pressed="${s.kLevel === k}" data-act="ciSet" data-k="kLevel" data-v="${k}">${v.short}</button>`).join('')}</div>
+        <span class="small muted">None under 0.5 · Light 0.5–1.4 · Deep 1.5–3.0 · Very high over 3.0 mmol/L. A typed reading sets the level. GKI = glucose ÷ ketones.</span></div>` : ''}
+      ${[['rfLeg', 'Numbness or weakness in a leg?'], ['rfSaddle', 'Numbness around the groin or buttocks?'], ['rfBladder', 'Change in bladder or bowel control?']].map(([k, l]) => `<div class="yn"><span>${l}</span><div class="seg danger"><button class="sm" aria-pressed="${!s[k]}" data-act="ciSet" data-k="${k}" data-v="0">No</button><button class="sm" aria-pressed="${!!s[k]}" data-act="ciSet" data-k="${k}" data-v="1">Yes</button></div></div>`).join('')}</div>
+      <button class="primary" data-act="saveCheckin">Save check-in</button></div></div>`;
+  }
+  return '';
+}
+
+/* ---------- timer overlay ---------- */
+let audio = null, wakeLock = null;
+function beep(f = 880, d = .15) {
+  try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); const o = audio.createOscillator(), g = audio.createGain(); o.frequency.value = f; o.connect(g); g.connect(audio.destination); g.gain.setValueAtTime(.25, audio.currentTime); g.gain.exponentialRampToValueAtTime(.001, audio.currentTime + d); o.start(); o.stop(audio.currentTime + d); } catch (e) {}
+}
+async function lockWake() { try { wakeLock = await navigator.wakeLock.request('screen'); } catch (e) {} }
+function openTimer(cfg) {
+  beep(660, .05); lockWake();
+  UI.timer = { ...cfg, start: Date.now(), phase: 'work', side: 'Left', rounds: 0, restEnd: 0, lastBeep: null };
+  paintTimer();
+  UI.timer.iv = setInterval(tickTimer, 200);
+}
+function closeTimer(done) {
+  const t = UI.timer; if (!t) return;
+  clearInterval(t.iv); UI.timer = null; $('#timer').hidden = true; $('#timer').innerHTML = '';
+  try { wakeLock && wakeLock.release(); } catch (e) {}
+  if (t.onClose) t.onClose(done, t);
+  render();
+}
+function tickTimer() {
+  const t = UI.timer; if (!t) return;
+  const now = Date.now();
+  const left = t.secs - (now - t.start) / 1000;
+  if (t.mode === 'amrap' && t.phase === 'rest' && now >= t.restEnd) { t.phase = 'work'; beep(990, .2); }
+  const watch = t.mode === 'amrap' && t.phase === 'rest' ? (t.restEnd - now) / 1000 : left;
+  const s = Math.ceil(watch);
+  if (s !== t.lastBeep && s <= 3 && s >= 1) { beep(); t.lastBeep = s; }
+  if (left <= 0) { beep(440, .6); closeTimer(true); return; }
+  paintTimer();
+}
+function paintTimer() {
+  const t = UI.timer, el = $('#timer'); if (!t) return;
+  const now = Date.now(), left = t.secs - (now - t.start) / 1000;
+  el.hidden = false;
+  el.className = 'timer' + (t.mode === 'amrap' && t.phase === 'rest' ? ' rest' : '');
+  const big = t.mode === 'amrap' && t.phase === 'rest' ? fmtClock((t.restEnd - now) / 1000) : fmtClock(left);
+  el.innerHTML = `<div class="row"><h2>${esc(t.title)}</h2><button class="sm" data-act="timerStop">${t.mode === 'amrap' ? 'Finish' : 'Stop'}</button></div>
+    <div class="mid"><div class="clock">${big}</div>
+    ${t.mode === 'amrap' ? `<p class="tag ${t.phase === 'rest' ? 'warn' : ''}" style="justify-self:center">${t.phase === 'rest' ? 'Rest · then ' + t.side + ' arm' : t.side + ' arm · round ' + (t.rounds + 1)}</p><p class="muted">${fmtClock(left)} left in the AMRAP</p>` : ''}
+    <p class="cue">${esc(t.cue)}</p></div>
+    ${t.mode === 'amrap' ? `<div class="btns" style="justify-content:center"><button class="primary" data-act="sideDone" ${t.phase === 'rest' ? 'disabled' : ''}>Side done</button><button data-act="formBroke" ${t.phase === 'rest' ? 'disabled' : ''}>Form broke</button></div>` : '<span></span>'}`;
+}
+
+/* ---------- actions ---------- */
+function toast(m) { UI.toast = m; render(); clearTimeout(UI.tt); UI.tt = setTimeout(() => { UI.toast = null; $('#toast').hidden = true; }, 2600); }
+function go(v) { UI.view = v; UI.msg = {}; UI.confirmEnd = UI.confirmClear = false; try { history.replaceState(null, '', '#' + v); } catch (e) {} render(); try { window.scrollTo(0, 0); } catch (e) {} }
+/* "HH:MM" -> timestamp in the last 24 h (a time later than now means yesterday) */
+function pastTime(hhmm, now) {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(hhmm || ''); if (!m) return null;
+  const d = new Date(now); d.setHours(+m[1], +m[2], 0, 0);
+  let t = d.getTime(); if (t > now + 60000) t -= DAY;
+  return t;
+}
+const hhmm = t => fmtTime(t);
+function whenLabel(t, now) { return fmtTime(t) + (dateKey(t) === dateKey(now) ? ' today' : dateKey(t) === dateKey(now - DAY) ? ' yesterday' : ' ' + fmtDate(t)); }
+function startFast(type, at) {
+  const now = Date.now();
+  S.fasts.list.push({ id: uid(), type, state: 'active', startedAt: at || now, targetH: FAST_TYPES[type].target, intake: [], symptoms: [] });
+  save('fasts'); render();
+}
+function endFast(how, reason, at) {
+  const f = activeFast(S); if (!f) return;
+  const now = at && at > f.startedAt ? at : Date.now();
+  f.state = how; f.endedAt = now; if (reason) f.abortReason = reason;
+  if (f.type !== 'daily') S.fasts.refeeds.push({ id: uid(), fastId: f.id, days: refeedDaysFor(f, now), startedOn: dateKey(now) });
+  const k = dateKey(now), dd = day(k); dd.fastH = Math.max(dd.fastH || 0, Math.round(elapsedH(f, now) * 10) / 10);
+  UI.confirmEnd = false; UI.pickEnd = false;
+  save('fasts'); saveMonth(now);
+  toast(f.type === 'daily' ? 'Fast logged: ' + fmtH(elapsedH(f, now)) + ' h' : 'Fast ended. Refeed protection is on.');
+}
+function logMeal(cat, override) {
+  const now = Date.now(), r = openRefeed(S, now);
+  const g = Number(($('#m-g') || {}).value) || null;
+  let verdict = 'allowed';
+  if (r) {
+    const v = checkRefeed(r, cat, g || 0);
+    if (v.v === 'blocked') { UI.msg.meal = v; render(); return; }
+    if (v.v === 'warn' && !override) { UI.msg.meal = v; UI.pendingMeal = cat; render(); return; }
+    if (v.v === 'warn') verdict = 'overridden';
+  }
+  month(now).meals.push({ t: now, cat, g, refeedDay: r ? r.day : null, verdict });
+  if (cat === 'broth') { const dd = day(dateKey(now)); dd.broth = (dd.broth || 0) + 250; }
+  if (cat === 'alcohol') day(dateKey(now)).alcohol = true;
+  UI.msg.meal = (!r && (cat === 'alcohol' || cat === 'sugar')) ? { v: 'warn', msg: 'Logged. The plan is zero alcohol and zero sugar.' } : { v: 'ok', msg: CAT[cat].label + ' logged.' };
+  UI.pendingMeal = null; saveMonth(now); render();
+}
+function saveSession() {
+  const dr = UI.draft, now = Date.now(), k = dateKey(now);
+  const items = dr.items.map(it => ({ ex: it.ex, kind: it.kind, rounds: it.rounds, sets: it.sets.map(s => ({ reps: it.kind === 'reps' ? s.reps : null, secs: it.kind === 'time' ? (s.done ? s.secs : 0) : null, metres: it.kind === 'distance' ? (s.done ? s.metres : 0) : null, ok: s.ok })) }));
+  month(now).workouts.push({ t: now, date: k, day: dr.dayKey, title: dr.title, downgraded: dr.downgraded, items });
+  day(k).workout = true;
+  let note = 'Session saved.';
+  const inc = items.find(i => i.ex === 'incline');
+  if (inc && S.profile.pushupStage !== 'floor' && earnsFloorPushup(inc.sets)) { S.profile.pushupStage = 'floor'; save('profile'); note = 'Session saved. Floor pushups unlocked.'; }
+  UI.draft = null; UI.msg.train = note; saveMonth(now); render();
+}
+
+document.addEventListener('click', e => {
+  const tab = e.target.closest('[data-view]'); if (tab) return go(tab.dataset.view);
+  const g = e.target.closest('[data-go]'); if (g) return go(g.dataset.go);
+  const a = e.target.closest('[data-act]'); if (!a) return;
+  if (a.dataset.act === 'closeSheet' && e.target.closest('[data-stop]') && !e.target.closest('button[data-act="closeSheet"]')) return;
+  const act = a.dataset.act, now = Date.now(), k = dateKey(now);
+  const it = a.dataset.i != null && UI.draft ? UI.draft.items[+a.dataset.i] : null;
+  switch (act) {
+    case 'startDaily': return startFast('daily');
+    case 'exportBackup': return exportBackup();
+    case 'syncOff': try { localStorage.removeItem('reset-sync'); } catch (x) {} return location.reload();
+    case 'pickStart': UI.pickStart = true; return render();
+    case 'cancelPickStart': UI.pickStart = false; return render();
+    case 'editStart': UI.editStart = true; return render();
+    case 'cancelEditStart': UI.editStart = false; return render();
+    case 'pickEnd': UI.pickEnd = true; return render();
+    case 'cancelPickEnd': UI.pickEnd = false; return render();
+    case 'startBlock': { const gt = canStartBlock(S, now); if (gt.ok) startFast(gt.type); return; }
+    case 'askEnd': UI.confirmEnd = true; return render();
+    case 'cancelEnd': UI.confirmEnd = false; return render();
+    case 'endFast': return endFast(a.dataset.how);
+    case 'intake': {
+      const f = activeFast(S); if (!f) return;
+      const v = checkFastIntake(f, a.dataset.cat, now);
+      if (v.v === 'blocked') { UI.msg.intake = v; return render(); }
+      f.intake.push({ t: now, cat: a.dataset.cat, ml: a.dataset.cat === 'tallow' ? 0 : 250, salt: a.dataset.cat === 'water' ? 1 : 0 });
+      if (a.dataset.cat === 'broth') { const dd = day(k); dd.broth = (dd.broth || 0) + 250; saveMonth(now); }
+      UI.msg.intake = { v: 'ok', msg: CAT[a.dataset.cat].label + ' logged.' };
+      save('fasts'); return render();
+    }
+    case 'symptom': {
+      const f = activeFast(S); if (!f) return;
+      f.symptoms.push({ t: now, s: a.dataset.s });
+      if (ABORT_SYMPTOMS.includes(a.dataset.s)) { save('fasts'); return endFast('aborted', a.dataset.s); }
+      UI.msg.intake = { v: 'ok', msg: SYMPTOMS[a.dataset.s] + ' noted. If it gets worse, end the fast.' };
+      save('fasts'); return render();
+    }
+    case 'meal': return logMeal(a.dataset.cat, false);
+    case 'mealOverride': return UI.pendingMeal && logMeal(UI.pendingMeal, true);
+    case 'kettleTimer': return openTimer({ title: 'Kettle squat', secs: 60, cue: EX.kettle.cue, onClose: done => { if (done) { day(dateKey(Date.now())).kettle = true; saveMonth(Date.now()); toast('Kettle squat done.'); } } });
+    case 'hangTimer': { const sg = safeguard(S, now).active; const secs = sg ? 30 : 25; return openTimer({ title: sg ? 'Foot-assisted traction' : 'Active hang', secs, cue: (sg ? EX.traction : EX.hang).cue, onClose: (done, t) => { const used = done ? secs : Math.floor((Date.now() - t.start) / 1000); if (used > 3) { const dd = day(dateKey(Date.now())); dd.hangSecs = (dd.hangSecs || 0) + used; saveMonth(Date.now()); } } }); }
+    case 'broth': { const dd = day(k); dd.broth = (dd.broth || 0) + 250; saveMonth(now); return render(); }
+    case 'checkin': case 'morningCheckin': {
+      const morning = act === 'morningCheckin' || new Date(now).getHours() < 11;
+      const kt = dayLog(S, k).ketone;
+      UI.sheet = { type: 'checkin', pain: 2, trigger: morning ? 'morning' : 'sneeze', side: 'left', rfLeg: false, rfSaddle: false, rfBladder: false, kLevel: kt ? kt.level : null, mmol: kt && kt.mmol != null ? kt.mmol : null, glu: dayLog(S, k).glucose != null ? dayLog(S, k).glucose : null };
+      return render();
+    }
+    case 'closeSheet': UI.sheet = null; return render();
+    case 'ciSet': { const v = a.dataset.v; UI.sheet[a.dataset.k] = v === '0' ? false : v === '1' ? true : v; return render(); }
+    case 'saveCheckin': {
+      const s = UI.sheet;
+      let ketone = null;
+      if (s.trigger === 'morning') {
+        const mm = s.mmol != null && isFinite(s.mmol) && s.mmol >= 0 ? Math.round(s.mmol * 10) / 10 : null;
+        const level = mm != null ? levelFromMmol(mm) : s.kLevel;
+        if (level) { ketone = { level, mmol: mm, t: now }; day(k).ketone = ketone; }
+        if (s.glu != null && isFinite(s.glu) && s.glu > 0) day(k).glucose = Math.round(s.glu * 10) / 10;
+      }
+      month(now).checkins.push({ t: now, pain: +s.pain, trigger: s.trigger, side: s.side, rfLeg: s.rfLeg, rfSaddle: s.rfSaddle, rfBladder: s.rfBladder, ketone, glucose: s.glu != null && isFinite(s.glu) && s.glu > 0 ? Math.round(s.glu * 10) / 10 : null });
+      UI.sheet = null; saveMonth(now);
+      return toast(s.rfLeg || s.rfSaddle || s.rfBladder ? 'Red flag saved. See a doctor today.' : +s.pain >= 4 ? 'Saved. Safeguard is on.' : 'Check-in saved.');
+    }
+    case 'pickDay': UI.trainDow = +a.dataset.dow; UI.msg.train = null; return render();
+    case 'step': { const s = it.sets[+a.dataset.s]; s.reps = Math.max(0, Math.min(it.cap || 50, s.reps + +a.dataset.d)); return render(); }
+    case 'roundStep': it.rounds = Math.max(0, (it.rounds || 0) + +a.dataset.d); return render();
+    case 'toggleSet': { const s = it.sets[+a.dataset.s]; s.done = !s.done; return render(); }
+    case 'setTimer': { const s = it.sets[+a.dataset.s]; return openTimer({ title: EX[it.ex].name + ' · set ' + (+a.dataset.s + 1), secs: s.secs, cue: EX[it.ex].cue, onClose: done => { if (done) s.done = true; } }); }
+    case 'amrap': return openTimer({ title: EX[it.ex].name, secs: it.minutes * 60, mode: 'amrap', rest: it.rest, cue: EX[it.ex].cue, onClose: (done, t) => { it.rounds = t.rounds; } });
+    case 'sideDone': case 'formBroke': {
+      const t = UI.timer; if (!t || t.phase === 'rest') return;
+      if (t.side === 'Right' && act === 'sideDone') t.rounds++;
+      t.side = t.side === 'Left' ? 'Right' : 'Left';
+      if (t.rest > 0) { t.phase = 'rest'; t.restEnd = Date.now() + t.rest * 1000; }
+      beep(520, .1); return paintTimer();
+    }
+    case 'timerStop': return closeTimer(false);
+    case 'saveSession': return saveSession();
+    case 'setL4': S.profile.l4 = a.dataset.v; save('profile'); return render();
+    case 'askClear': UI.confirmClear = true; return render();
+    case 'cancelClear': UI.confirmClear = false; return render();
+    case 'commuteMode': S.profile.commuteMode = a.dataset.v; save('profile'); return render();
+    case 'logCommute': {
+      const cp = commutePlan(now);
+      const rem = [];
+      if (cp.mode === 'cycle') rem.push({ id: 'hip', done: false });
+      if (cp.xero) rem.push({ id: 'calf', done: false });
+      const m = month(now); (m.commutes || (m.commutes = [])).push({ t: now, mode: cp.mode, km: cp.km, partial: cp.km < ROUTE_KM, xero: cp.xero,
+        alignMin: cp.mode === 'walk' ? Math.round(WALK_ALIGN_MIN * cp.km / ROUTE_KM) : 0, reminders: rem });
+      saveMonth(now);
+      return toast(cp.mode === 'cycle' ? 'Ride logged. Hip flexor stretch when you arrive.' : `Walk logged: ${Math.round(WALK_ALIGN_MIN * cp.km / ROUTE_KM)} min alignment.`);
+    }
+    case 'commuteStretch': {
+      const t = +a.dataset.t, x = (month(t).commutes || []).find(e => e.t === t); if (!x) return;
+      const r = x.reminders.find(q => q.id === a.dataset.r);
+      return openTimer({ title: STRETCH[r.id].label, secs: 30, cue: STRETCH[r.id].cue, onClose: done => { if (done) { r.done = true; saveMonth(t); } } });
+    }
+    case 'clearRF': S.profile.redFlagClearedAt = Date.now(); UI.confirmClear = false; save('profile'); return toast('Red flag cleared.');
+  }
+});
+document.addEventListener('change', e => {
+  const el = e.target;
+  if (el.dataset.act === 'formOk') { UI.draft.items[+el.dataset.i].sets[+el.dataset.s].ok = el.checked; return; }
+  if (el.dataset.act === 'brothMeal1') { day(dateKey(Date.now())).brothMeal1 = el.checked; saveMonth(Date.now()); return render(); }
+  if (el.dataset.act === 'xero') { S.profile.xero = el.checked; if (el.checked && !S.profile.xeroSince) S.profile.xeroSince = dateKey(Date.now()); save('profile'); return render(); }
+  if (el.id === 's-import' && el.files && el.files[0]) { importBackup(el.files[0]); el.value = ''; return; }
+  if (el.dataset.act === 'ketoTick') { day(dateKey(Date.now()))[el.dataset.k] = el.checked; saveMonth(Date.now()); return render(); }
+  if (el.dataset.act === 'alcohol') { day(dateKey(Date.now())).alcohol = el.checked; saveMonth(Date.now()); return render(); }
+  if (el.dataset.prof) {
+    const key = el.dataset.prof;
+    let v = el.type === 'checkbox' ? el.checked : el.type === 'number' ? Number(el.value) : el.value;
+    if (el.type === 'number' && !isFinite(v)) return;
+    S.profile[key] = v; save('profile');
+    if (el.type === 'checkbox' || el.tagName === 'SELECT') render();
+  }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'k-glu' && UI.sheet) { const v = e.target.value; UI.sheet.glu = v === '' ? null : Number(v); return; }
+  if (e.target.id === 'k-mmol' && UI.sheet) { const v = e.target.value; UI.sheet.mmol = v === '' ? null : Number(v); return; }
+  if (e.target.id === 'c-pain' && UI.sheet) { UI.sheet.pain = +e.target.value; $('#painv').textContent = e.target.value; }
+});
+document.addEventListener('submit', e => {
+  e.preventDefault();
+  const now = Date.now();
+  if (e.target.dataset.form === 'sync') {
+    const url = $('#s-url').value.trim(), code = $('#s-code').value.trim();
+    if (!/^https:\/\/script\.google(usercontent)?\.com\/.+\/exec$/.test(url)) return toast('The address should start https://script.google.com and end /exec.');
+    if (!code) return toast('Enter the access code from the Setup tab.');
+    toast('Checking…');
+    return gasCall(url, code, { op: 'list' }).then(() => {
+      try { localStorage.setItem('reset-sync', JSON.stringify({ url, code })); } catch (x) {}
+      location.reload();
+    }).catch(err => toast(err && err.code === 'bad_code' ? 'Access code doesn’t match the sheet.' : err && err.code === 'run_setup' ? 'Run setup() in the script first.' : 'Can’t reach that address. Check it was deployed with access “Anyone”.'));
+  }
+  if (e.target.dataset.form === 'startEarlier') {
+    const t = pastTime($('#f-start').value, now); if (t == null) return toast('Pick a time.');
+    UI.pickStart = false; startFast('daily', t); return toast('16:8 fast started from ' + whenLabel(t, now) + '.');
+  }
+  if (e.target.dataset.form === 'editStart') {
+    const f = activeFast(S), t = pastTime($('#f-edit').value, now); if (!f || t == null) return;
+    f.startedAt = t; UI.editStart = false; save('fasts'); return toast('Start moved to ' + whenLabel(t, now) + '.');
+  }
+  if (e.target.dataset.form === 'endEarlier') {
+    const f = activeFast(S), t = pastTime($('#f-end').value, now); if (!f || t == null) return;
+    if (t <= f.startedAt) return toast('That’s before the fast started.');
+    return endFast((t - f.startedAt) / HOUR >= f.targetH ? 'completed' : 'aborted', null, t);
+  }
+  if (e.target.dataset.form === 'weigh') {
+    const kg = Number($('#w-kg').value);
+    if (!(kg >= 40 && kg <= 250)) return toast('Enter a weight between 40 and 250 kg.');
+    const now = Date.now(); month(now).weights.push({ t: now, kg: Math.round(kg * 10) / 10 }); day(dateKey(now)).weighed = true;
+    saveMonth(now); $('#w-kg').blur(); toast(kg.toFixed(1) + ' kg logged.');
+  }
+});
+window.addEventListener('hashchange', () => { const v = location.hash.slice(1); if (['today', 'train', 'fast', 'progress', 'setup'].includes(v) && v !== UI.view) go(v); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) cacheLocal(); else if (dirty.size) { retryMs = 3000; flush(); } if (!document.hidden) { if (UI.timer) lockWake(); else render(); } });
+setInterval(() => { if (!UI.timer && !UI.sheet && (UI.view === 'today' || UI.view === 'fast') && activeFast(S)) softRender(); }, 30000);
+(function boot() { const v = location.hash.slice(1); if (['today', 'train', 'fast', 'progress', 'setup'].includes(v)) UI.view = v; connect(); })();
+</script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});</script>
+</body></html>
